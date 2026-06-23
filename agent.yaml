@@ -1,0 +1,134 @@
+name: bible-commentary-agent
+displayName: Bible Commentary Agent
+description: Generate rich, mobile-optimized HTML Bible study files with verse-by-verse analysis, Greek/Hebrew word breakdowns, and reflection questions.
+
+version: 1.0.0
+publisher: Bible Study Tools
+homepage: https://github.com/your-username/bible-commentary-skill
+
+# Agent configuration
+agent:
+  type: autonomous
+  model: gpt-4-turbo
+  temperature: 0.7
+  maxTokens: 8000
+  
+# Tools available to the agent
+tools:
+  - id: scripture-lookup
+    type: function
+    name: scripture-lookup
+    description: Retrieve Bible text, verse references, and cross-reference suggestions
+    input:
+      type: object
+      properties:
+        book:
+          type: string
+          description: Bible book name
+        chapter:
+          type: string
+          description: Chapter number
+        verse:
+          type: string
+          description: Verse number (optional)
+    
+  - id: html-generator
+    type: function
+    name: html-generator
+    description: Generate mobile-optimized HTML with design system styles
+    input:
+      type: object
+      properties:
+        content:
+          type: object
+          description: Structured verse commentary data
+        bookType:
+          type: string
+          enum: [pauline, peter, gospel, wisdom, prophet, revelation]
+          description: Book type for accent color selection
+        
+  - id: chapter-logger
+    type: function
+    name: chapter-logger
+    description: Log completed chapters to avoid duplication
+    input:
+      type: object
+      properties:
+        book:
+          type: string
+        chapter:
+          type: string
+        dateGenerated:
+          type: string
+        accentColor:
+          type: string
+
+# Deployment configuration
+deployment:
+  platform: azure-ai-foundry
+  runtime: python-3.11
+  resources:
+    cpu: 2
+    memory: 4Gi
+  scaling:
+    minReplicas: 1
+    maxReplicas: 3
+    targetUtilization: 0.7
+
+# API configuration
+api:
+  enabled: true
+  basePath: /api/v1
+  endpoints:
+    - path: /commentaries
+      method: POST
+      description: Generate a new Bible commentary
+    - path: /commentaries/{id}
+      method: GET
+      description: Retrieve a generated commentary
+    - path: /chapters
+      method: GET
+      description: List all completed chapters
+
+# Monitoring and logging
+monitoring:
+  enabled: true
+  metricsInterval: 60
+  logs:
+    level: INFO
+    destination: application-insights
+
+# Authentication
+auth:
+  type: api-key
+  header: X-API-Key
+  scopes:
+    - read:commentaries
+    - write:commentaries
+
+# Storage
+storage:
+  type: azure-blob
+  container: bible-commentaries
+  outputFormat: html
+
+# Environment variables
+env:
+  OPENAI_API_KEY: ${FOUNDRY_SECRET:OPENAI_API_KEY}
+  SCRIPTURE_API_KEY: ${FOUNDRY_SECRET:SCRIPTURE_API_KEY}
+  AZURE_STORAGE_CONNECTION_STRING: ${FOUNDRY_SECRET:AZURE_STORAGE_CONNECTION_STRING}
+  LOG_LEVEL: INFO
+
+# Metadata
+metadata:
+  category: Bible Study
+  tags:
+    - scripture
+    - theology
+    - education
+    - mobile
+  requirements:
+    - name: openai
+      version: ">=0.27.0"
+    - name: azure-storage-blob
+      version: ">=12.0.0"

@@ -1,0 +1,18 @@
+You are a Bible character expert. Extract all named people from the first 3 verses with key details.
+
+{
+  "people": [
+    {
+      "name": "person name",
+      "role": "their role",
+      "background": "who they are",
+      "keyMoments": ["event1", "event2"],
+      "relationshipToPassage": "connection to verse",
+      "legacy": "their lasting impact",
+      "keyTexts": ["scripture reference"],
+      "characterType": "apostle/disciple/historical figure/deity"
+    }
+  ]
+}
+
+Return ONLY valid JSON, no markdown.

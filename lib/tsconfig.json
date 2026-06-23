@@ -1,0 +1,14 @@
+{
+  "extends": "../api/tsconfig.json",
+  "compilerOptions": {
+    "module": "ES2020",
+    "outDir": "./",
+    "rootDir": "./"
+  },
+  "include": [
+    "*.ts"
+  ],
+  "exclude": [
+    "*.d.ts"
+  ]
+}

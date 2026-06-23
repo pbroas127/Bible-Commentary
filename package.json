@@ -1,0 +1,59 @@
+{
+  "name": "@bible-commentary/skill",
+  "version": "1.0.0",
+  "description": "Generate rich, mobile-optimized HTML Bible study files with structured commentary data",
+  "main": "lib/index.ts",
+  "types": "lib/index.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.ts",
+      "types": "./lib/index.ts"
+    },
+    "./generator": {
+      "import": "./lib/html-generator.ts",
+      "types": "./lib/html-generator.ts"
+    },
+    "./types": {
+      "import": "./lib/types.ts",
+      "types": "./lib/types.ts"
+    },
+    "./design-system": {
+      "import": "./lib/design-system.ts",
+      "types": "./lib/design-system.ts"
+    }
+  },
+  "files": [
+    "lib/",
+    "README.md",
+    "SKILL.md"
+  ],
+  "keywords": [
+    "bible",
+    "commentary",
+    "scripture",
+    "html-generator",
+    "mobile",
+    "theology",
+    "greek",
+    "hebrew"
+  ],
+  "author": "Bible Study Tools",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/bible-commentary-skill"
+  },
+  "homepage": "https://github.com/yourusername/bible-commentary-skill#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/bible-commentary-skill/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test",
+    "type-check": "tsc --noEmit"
+  }
+}

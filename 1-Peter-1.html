@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Peter 1 | Bible Commentary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #5bb8a0;
+            --accent-rgb: 91, 184, 160;
+            --bg: #0c0b09;
+            --surface: #1a1814;
+            --surface-light: #2a251f;
+            --text: #f5f5f0;
+            --text-muted: #a8a8a0;
+            --text-dim: #7a7a70;
+            --border: #3a3530;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+        h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.4rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(var(--accent-rgb), 0.3); transition: all 0.2s; }
+        a:hover { border-bottom-color: var(--accent); }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .hero h1 { color: var(--accent); font-size: 3rem; margin-bottom: 0.5rem; }
+        .hero .chapter-num { font-size: 5rem; color: rgba(var(--accent-rgb), 0.15); margin: 0; line-height: 1; }
+        .hero .key-verse { font-size: 1.1rem; color: var(--text-muted); font-style: italic; margin-top: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* Sticky Nav */
+        .sticky-nav {
+            position: sticky;
+            top: 8rem;
+            background: rgba(26, 24, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            overflow-x: auto;
+            z-index: 9;
+            margin-bottom: 2rem;
+        }
+
+        .verse-pills {
+            display: flex;
+            gap: 0.5rem;
+            min-width: min-content;
+        }
+
+        .verse-pill {
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .verse-pill:hover, .verse-pill.active {
+            background: var(--surface-light);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Theme Filters */
+        .theme-filters {
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .theme-filters h3 { margin-top: 0; }
+
+        .theme-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .theme-chip {
+            padding: 0.4rem 1rem;
+            background: rgba(var(--accent-rgb), 0.1);
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            border-radius: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .theme-chip:hover, .theme-chip.active {
+            background: rgba(var(--accent-rgb), 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Verse Card */
+        .verse-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .verse-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.5);
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .verse-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .verse-ref {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            font-weight: 700;
+        }
+
+        .verse-text {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            flex: 1;
+        }
+
+        /* Tabs */
+        .tabs {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tab-button:hover, .tab-button.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content blocks */
+        .content-block {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .content-block h4 {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .content-block p {
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .greek-word {
+            background: rgba(var(--accent-rgb), 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .greek-word .word {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .greek-word .transliteration {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .greek-word .gloss {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .wow-box {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+            border: 2px solid rgba(var(--accent-rgb), 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text);
+            font-size: 1.05rem;
+        }
+
+        .wow-box::before {
+            content: "✨ ";
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .cool-point {
+            background: var(--surface-light);
+            border-left: 3px solid rgba(var(--accent-rgb), 0.5);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+            color: var(--text);
+        }
+
+        .cool-point::before {
+            content: "⚡ ";
+            color: var(--accent);
+        }
+
+        .question-answer {
+            margin: 1.5rem 0;
+            background: var(--surface-light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .question-btn {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .question-btn:hover {
+            background: rgba(var(--accent-rgb), 0.05);
+            color: var(--accent);
+        }
+
+        .question-btn .icon {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .question-btn.expanded .icon {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            padding: 1rem;
+            color: var(--text-muted);
+            display: none;
+            line-height: 1.8;
+        }
+
+        .answer.expanded {
+            display: block;
+        }
+
+        .cross-ref {
+            background: rgba(var(--accent-rgb), 0.05);
+            border-left: 3px solid rgba(var(--accent-rgb), 0.5);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .cross-ref .passage {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cross-ref .explanation {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .person-bio {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, rgba(var(--accent-rgb), 0.02) 100%);
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .person-bio h5 {
+            color: var(--accent);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .person-bio .role {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .person-bio p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .person-bio .key-moment {
+            background: rgba(var(--accent-rgb), 0.1);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            padding-bottom: 3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin: 0.25rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .chapter-num { font-size: 3rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.4rem; }
+            
+            .verse-card {
+                padding: 1.5rem;
+            }
+
+            .verse-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .tabs {
+                gap: 0;
+                border-bottom: none;
+            }
+
+            .tab-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+                border-bottom: 2px solid transparent;
+                margin-bottom: 1rem;
+            }
+
+            .sticky-nav {
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>1 Peter</h1>
+        <div class="chapter-num">1</div>
+        <p class="key-verse">"Blessed be the God and Father of our Lord Jesus Christ! According to his great mercy, he has caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead" — 1 Peter 1:3</p>
+    </div>
+
+    <div class="sticky-nav">
+        <div class="verse-pills">
+            <div class="verse-pill active" onclick="scrollToVerse('3')">3</div>
+            <div class="verse-pill" onclick="scrollToVerse('6-7')">6-7</div>
+            <div class="verse-pill" onclick="scrollToVerse('13')">13</div>
+            <div class="verse-pill" onclick="scrollToVerse('18-19')">18-19</div>
+            <div class="verse-pill" onclick="scrollToVerse('23-25')">23-25</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="theme-filters">
+            <h3>Filter by Theme</h3>
+            <div class="theme-chips">
+                <div class="theme-chip active" onclick="filterTheme('Hope')">Hope</div>
+                <div class="theme-chip" onclick="filterTheme('Suffering')">Suffering</div>
+                <div class="theme-chip" onclick="filterTheme('Faith')">Faith</div>
+                <div class="theme-chip" onclick="filterTheme('Holiness')">Holiness</div>
+                <div class="theme-chip" onclick="filterTheme('Redemption')">Redemption</div>
+                <div class="theme-chip" onclick="filterTheme('Living Hope')">Living Hope</div>
+            </div>
+        </div>
+
+        <!-- Verse 3 (Key Verse) -->
+        <div class="verse-card" data-verse="3" data-themes="Hope,Redemption,Living Hope,Faith">
+            <div class="verse-header">
+                <span class="verse-ref">3</span>
+                <span class="verse-text">Blessed be the God and Father of our Lord Jesus Christ! According to his great mercy, he has caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead—</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'commentary')">Commentary</button>
+                <button class="tab-button" onclick="switchTab(event, 'deeper')">Deeper</button>
+                <button class="tab-button" onclick="switchTab(event, 'greek')">Greek</button>
+                <button class="tab-button" onclick="switchTab(event, 'cool')">Cool Points</button>
+                <button class="tab-button" onclick="switchTab(event, 'qa')">Q&A</button>
+            </div>
+
+            <div id="commentary" class="tab-content active">
+                <div class="content-block">
+                    <p>This is one of the most theologically rich verses in Scripture. Peter opens not with a problem but with doxology—a blessing, a hymn of praise to God. He's not starting with "Here's why you're suffering"; he's starting with "Here's why you can rejoice." The key word is "living hope."</p>
+                    <p>Peter writes to believers scattered across Asia Minor, facing persecution from their pagan neighbors and the Roman government. They're asking: "Why are we suffering? Has God abandoned us? Can we really trust him?" Peter's answer: Because of the resurrection, you have a living hope—a hope that is alive, active, present-tense, not a wishful dream for the future.</p>
+                    <p>Notice the logical chain: God's mercy → caused us to be born again → through the resurrection. Your spiritual rebirth is rooted in Christ's resurrection. That means your hope isn't based on your circumstances; it's based on an eternal, unchangeable reality: Christ is risen.</p>
+                </div>
+            </div>
+
+            <div id="deeper" class="tab-content">
+                <div class="content-block">
+                    <p><strong>What's under the surface:</strong> Peter is making a claim about the nature of hope itself. Most "hope" is passive—you hope something will happen someday. But Peter uses "living hope" (elpidem zōsan), which emphasizes that this hope is animated, active, dynamic. It's not something you're hoping for; it's something alive within you right now.</p>
+                    <p>The phrase "born again" (anagennao) is rare in the NT—Peter is the only one who uses it. It emphasizes that believers have experienced a radical transformation. You're not improved or reformed; you're regenerated, born anew. And this rebirth happens "through the resurrection"—not just the fact of Christ's resurrection, but the power of it active in your life.</p>
+                    <div class="wow-box">Imagine you're trapped in a cave, and someone tells you "There's a light outside." That's hope. But then the light breaks through the cave wall itself and floods in. That's a living hope—it's not something far away; it's present, active, transforming everything around you.</div>
+                </div>
+            </div>
+
+            <div id="greek" class="tab-content">
+                <div class="greek-word">
+                    <div class="word">ἐλπίς (elpis)</div>
+                    <div class="transliteration">el-pis'</div>
+                    <div class="gloss">hope</div>
+                    <div class="definition">Not wishful thinking, but confident expectation based on a solid foundation. In Greek, elpis often means "to look forward to" with certainty. Peter modifies it with "living" to emphasize its present-tense reality.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: This isn't "I hope maybe someday." This is "I am certain because Christ is risen."</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">ἀναγεννάω (anagennao)</div>
+                    <div class="transliteration">an-ag-en-nah'-o</div>
+                    <div class="gloss">to cause to be born again, to regenerate</div>
+                    <div class="definition">A compound verb meaning "to generate again" or "to give birth again." It's a radical transformation, not improvement. Only Peter uses this word in the NT. It emphasizes that believers are not slightly reformed but fundamentally reborn.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: Your spiritual reality is not improved Christianity; it's rebirth. Your hope is rooted in this fundamental transformation.</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">ἐλεός (eleos)</div>
+                    <div class="transliteration">el-eh'-os</div>
+                    <div class="gloss">mercy, compassion</div>
+                    <div class="definition">God's mercy is not a response to what you deserve; it's his active, compassionate initiative toward the suffering. Peter grounds everything in God's mercy, not human merit.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: You don't get a living hope because you earned it. You get it because God is merciful.</div>
+                </div>
+            </div>
+
+            <div id="cool" class="tab-content">
+                <div class="cool-point">Peter opens with a doxology (a blessing of God), not a problem statement. This is crucial: he doesn't say, "I'm writing because you're suffering." He says, "Blessed be God because you have a living hope." The entire letter hangs on this framework.</div>
+                <div class="cool-point">The phrase "great mercy" (mega eleos) appears only here in 1 Peter, but it echoes the Old Testament language of God's covenantal compassion toward Israel. Peter is saying believers are the New Testament Israel, recipients of God's same mercy.</div>
+                <div class="cool-point">The resurrection isn't mentioned as a past event but as a present power: "through the resurrection" emphasizes that Christ's rising power is active, flowing through to regenerate believers today. This is why the hope is "living"—it's sustained by an active, risen Christ.</div>
+            </div>
+
+            <div id="qa" class="tab-content">
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        What does "born again" mean, and why does Peter use this term?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>Being "born again" means you've experienced a fundamental spiritual transformation. You're not the same person improved; you're a new person entirely. Peter uses this term to emphasize that salvation isn't reformation—it's regeneration. You haven't cleaned up your act; you've been remade. This radical transformation is what grounds your living hope. If you're merely reformed, your hope depends on yourself. But if you're regenerated, your hope depends on God's power, which is eternal and unshakeable.</p>
+                    </div>
+                </div>
+
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        How can we have hope that is "living" when we're experiencing persecution and suffering?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>A living hope isn't based on your circumstances. It's based on the resurrection of Christ. Christ rose from the dead—that's a historical fact, and it's the foundation of everything. Your suffering is real, but it's temporary. Christ's resurrection is real, and it's eternal. A living hope means you're connected to a power that is greater than your suffering, that cannot be defeated, and that guarantees your ultimate redemption. The hope isn't that suffering will end (though it will); the hope is that you belong to a risen Christ who has already overcome the world.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verse 6-7 -->
+        <div class="verse-card" data-verse="6-7" data-themes="Faith,Suffering,Hope">
+            <div class="verse-header">
+                <span class="verse-ref">6-7</span>
+                <span class="verse-text">In this you rejoice, though now for a little while, if necessary, you have been grieved by various trials, so that the tested genuineness of your faith—more precious than gold that perishes though it is tested by fire—may be found to result in praise and glory and honor when Jesus Christ is revealed.</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'commentary')">Commentary</button>
+                <button class="tab-button" onclick="switchTab(event, 'deeper')">Deeper</button>
+                <button class="tab-button" onclick="switchTab(event, 'greek')">Greek</button>
+                <button class="tab-button" onclick="switchTab(event, 'cool')">Cool Points</button>
+                <button class="tab-button" onclick="switchTab(event, 'qa')">Q&A</button>
+            </div>
+
+            <div id="commentary" class="tab-content active">
+                <div class="content-block">
+                    <p>This verse gives the practical outworking of the living hope. Yes, you have a living hope, so "in this you rejoice"—you can celebrate and be glad. But that joy doesn't mean you won't suffer. Peter acknowledges the reality: "You have been grieved by various trials." The Greek word for "grieved" (lupē) means sorrow, pain, distress. Peter is not minimizing suffering.</p>
+                    <p>But notice the purpose of the trials: "so that the tested genuineness of your faith may be found." Trials aren't punishment; they're refinement. They test your faith the way fire tests gold. Gold that survives the fire is proven authentic. Your faith that survives trials is proven genuine. This is the logic of living hope: suffering is not meaningless; it's producing something of eternal value.</p>
+                    <p>The result is "praise and glory and honor when Jesus Christ is revealed"—your tested faith will be vindicated and celebrated at the end of all things. So suffering is not the end of the story; it's a chapter in a story that ends in glory.</p>
+                </div>
+            </div>
+
+            <div id="deeper" class="tab-content">
+                <div class="content-block">
+                    <p><strong>What's under the surface:</strong> Peter is reframing the way believers should think about suffering. In a culture that values comfort and security, trials seem like failures—"Why is God letting this happen?" But Peter says trials are actually evidence of God's investment in you. He's refining your faith because your faith matters to him. He's working you toward authenticity and maturity.</p>
+                    <p>The comparison to gold is significant. Gold is tested by fire to remove impurities. The heat doesn't create new gold; it purifies existing gold. Likewise, trials don't create new faith; they purify existing faith by burning away doubt, pride, and shallow belief. What remains is genuine.</p>
+                    <div class="wow-box">Imagine a sculptor chiseling marble. The marble is struck with a hammer—painful strikes. But the artist knows each blow is revealing the beauty within. That's how Peter sees suffering: God is the artist, you're the marble, and trials are the chisel revealing your genuine, authentic self.</div>
+                </div>
+            </div>
+
+            <div id="greek" class="tab-content">
+                <div class="greek-word">
+                    <div class="word">δοκίμη (dokimē)</div>
+                    <div class="transliteration">dok-ee'-may</div>
+                    <div class="gloss">proof, tested genuineness</div>
+                    <div class="definition">Not just faith itself, but the proof or genuineness of faith. It's what's left after testing. The word originally referred to the approved standard after metal was tested by fire.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: Trials don't destroy your faith; they prove it's genuine. Your faith is being certified, not annihilated.</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">πυρόω (pyroō)</div>
+                    <div class="transliteration">pur-o'-o</div>
+                    <div class="gloss">to test by fire, to refine</div>
+                    <div class="definition">Literal fire testing (used in metallurgy) or metaphorical fire testing. Peter uses this to say that trials are like fire—they test and refine, not destroy.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: This is not punishment fire; it's refining fire. The purpose is purification, not destruction.</div>
+                </div>
+            </div>
+
+            <div id="cool" class="tab-content">
+                <div class="cool-point">Peter says you have been "grieved" (past tense) by trials. He's not predicting future suffering; he's acknowledging present, real suffering. This letter is written to people who are already hurting, not to people who might someday hurt.</div>
+                <div class="cool-point">The phrase "if necessary" is crucial. Not all suffering is necessary; some is avoidable (if you break God's law, consequences follow). But the trials these believers are enduring—persecution for their faith—are "necessary" because they're following Christ. There's a difference between deserved suffering and sacrificial suffering.</div>
+                <div class="cool-point">Peter values faith so highly that he says it's more precious than gold. Gold is the ultimate measure of value in his culture, yet he says tested faith exceeds even that. This elevates the spiritual above the material in the most striking way possible.</div>
+            </div>
+
+            <div id="qa" class="tab-content">
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        If God loves us, why would he allow suffering?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>Peter's answer is profound: God allows suffering because he loves you. When a parent allows their child to practice a musical instrument (which is painful), they do so because they value the child's growth. When a doctor allows a patient to undergo surgery (which causes pain), they do so because they value the patient's health. God allows suffering because he values your spiritual maturity, your tested faith, your genuine character. The suffering is real and painful, but it's purposeful—it's producing something of eternal value. God doesn't orchestrate suffering as punishment for believers; he allows it as refinement toward authenticity.</p>
+                    </div>
+                </div>
+
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        How does this perspective on suffering apply to us today?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>Peter's perspective shifts our entire posture toward difficulty. Instead of asking "Why is this happening to me?" we ask "What is God refining in me?" Instead of seeing suffering as pointless, we see it as purposeful. This doesn't eliminate pain, but it transforms pain's meaning. You might face job loss, illness, broken relationships, or persecution for your faith. Peter says: don't despair. This trial is like fire testing gold—it's proving your faith genuine, it's strengthening your character, and it's preparing you for glory. This perspective doesn't deny reality; it reframes it around an ultimate hope that transcends present circumstances.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verse 18-19 -->
+        <div class="verse-card" data-verse="18-19" data-themes="Redemption,Holiness">
+            <div class="verse-header">
+                <span class="verse-ref">18-19</span>
+                <span class="verse-text">knowing that you were ransomed from the futile ways inherited from your forefathers, not with perishable things such as silver or gold, but with the precious blood of Christ, like that of a lamb without blemish or defect.</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'commentary')">Commentary</button>
+                <button class="tab-button" onclick="switchTab(event, 'deeper')">Deeper</button>
+                <button class="tab-button" onclick="switchTab(event, 'greek')">Greek</button>
+                <button class="tab-button" onclick="switchTab(event, 'cool')">Cool Points</button>
+                <button class="tab-button" onclick="switchTab(event, 'qa')">Q&A</button>
+            </div>
+
+            <div id="commentary" class="tab-content active">
+                <div class="content-block">
+                    <p>Peter now grounds his ethical teaching in something even deeper: Christ's redemptive work. You are free from "futile ways inherited from your forefathers." This could mean two things: (1) the pagan practices and idolatry your parents taught you, or (2) the legalistic, works-based religion that was passed down. Either way, you were enslaved to a pattern of life that leads nowhere.</p>
+                    <p>But you've been "ransomed"—a legal term meaning you've been purchased, freed from debt or slavery. The price was not gold or silver (material things), but "the precious blood of Christ." Peter invokes the sacrificial language of the Old Testament: Christ is like the Passover lamb, unblemished and perfect, whose death secured your freedom.</p>
+                    <p>This is why you can stand firm in persecution. You've been bought with an infinite price. You don't belong to your old way of life anymore; you belong to Christ. That reality is more powerful than any pressure from society.</p>
+                </div>
+            </div>
+
+            <div id="deeper" class="tab-content">
+                <div class="content-block">
+                    <p><strong>What's under the surface:</strong> Peter is answering the question: "Why should we suffer for Christ when we could go back to our old way of life?" His response: because your old way of life was futile. It was slavery. You've been ransomed from it at an infinite cost. To go back would be to reject that redemption.</p>
+                    <p>The phrase "precious blood" (timion haima) emphasizes Christ's blood as having infinite value—more precious than all the gold and silver in the world. This is theological language: Christ's sacrifice is not merely historical; it's eternally efficacious. Every time you face suffering for your faith, you're remembering that you've already been purchased at infinite cost. That changes your calculation of sacrifice.</p>
+                    <div class="wow-box">Imagine someone pays an enormous debt for you—more than you could ever repay. Now, would you go back and incur that same debt again out of comfort or convenience? Of course not. That would be rejecting the sacrifice someone made for you. That's what Peter is saying: Christ paid the infinite price for your freedom. Don't go back to slavery for the sake of comfort.</div>
+                </div>
+            </div>
+
+            <div id="greek" class="tab-content">
+                <div class="greek-word">
+                    <div class="word">λύτρον (lytron)</div>
+                    <div class="transliteration">loo'-tron</div>
+                    <div class="gloss">ransom, price of redemption</div>
+                    <div class="definition">Payment for freedom from slavery or captivity. In the OT, it often meant the price paid to secure release from bondage or to atone for sin. Peter uses this to say Christ's blood is the ransom price that freed you.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: You're not just forgiven; you're ransomed. You've been purchased out of slavery at infinite cost.</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">τίμιος (timios)</div>
+                    <div class="transliteration">tim'-ee-os</div>
+                    <div class="gloss">precious, valuable, held in honor</div>
+                    <div class="definition">Of great worth or value. Peter uses it to elevate Christ's blood above all material wealth. The blood of the God-man is more valuable than all created things.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: This emphasizes infinite value. You're worth more to Christ than all the world's wealth.</div>
+                </div>
+            </div>
+
+            <div id="cool" class="tab-content">
+                <div class="cool-point">Peter says the "futile ways" were "inherited from your forefathers." This acknowledges that sin is generational—passed down through family and culture. But Christ's redemption breaks that chain. You're not bound to repeat your parents' mistakes; you're redeemed from them.</div>
+                <div class="cool-point">The comparison to "a lamb without blemish or defect" directly evokes the Passover lamb (Exodus 12) and the sacrificial system of the temple. Peter is saying Christ is the ultimate fulfillment of all those OT sacrifices. Everything in the OT pointed to this.</div>
+                <div class="cool-point">The phrase "not with perishable things" contrasts the infinite with the temporary. Gold and silver will perish; they're valuable but finite. Christ's blood is infinite in value and eternal in effect. The comparison elevates spiritual redemption above all material wealth.</div>
+            </div>
+
+            <div id="qa" class="tab-content">
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        What does it mean that we were "ransomed" by Christ's blood?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>Ransoming means being purchased out of captivity at a price. Peter is saying you were enslaved to a futile way of life—an existence without purpose, meaning, or hope. Christ paid the infinite price (his blood, his life) to free you from that captivity. You now belong to him, not to your old way of life. This isn't a transaction where you owe Christ something; it's an act of redemptive grace where he paid the debt you couldn't pay. The result is freedom—freedom to live for him, to endure suffering for his sake, and to inherit eternal life.</p>
+                    </div>
+                </div>
+
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        How does understanding redemption help us endure persecution?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>Persecution makes you question whether your faith is worth it. Society tells you to deny your faith to fit in, get ahead, or avoid pain. But Peter says: remember, you've been purchased at infinite cost. Your old way of life enslaved you to futility. Your new way of life in Christ cost him everything. To abandon that would be to reject the sacrifice already made for you. That remembrance—"I've been ransomed at infinite cost"—is more powerful than any social or physical pressure. Persecution is real pain, but it pales in comparison to the infinite value of the redemption you've received.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="verse-card">
+            <h2>Chapter Overview</h2>
+            <div class="content-block">
+                <p><strong>The Context:</strong> Peter writes to believers scattered across Asia Minor (modern-day Turkey) who are experiencing persecution. They're facing social ostracism, verbal abuse, and possibly legal persecution from pagan neighbors and Roman authorities. The temptation is to abandon faith, return to pagan society, and avoid suffering.</p>
+
+                <p><strong>Peter's Strategy:</strong> Instead of minimizing suffering, Peter reframes it. He opens with doxology (praise to God), emphasizing living hope rooted in Christ's resurrection. He then shows that suffering, while painful, is purposeful—it's refining faith, proving genuineness, and preparing believers for glory. Finally, he reminds believers that they've been ransomed from a futile way of life at infinite cost, which means returning to that way of life is unthinkable.</p>
+
+                <p><strong>The Central Theme:</strong> Living hope in the midst of suffering. Hope is not passive wishfulness; it's active confidence rooted in Christ's resurrection. This hope sustains believers through trials, refines their faith, and orients their lives toward eternal glory.</p>
+            </div>
+
+            <h3>Key Themes in 1 Peter 1</h3>
+            <div class="cool-point"><strong>Living Hope:</strong> Active, present-tense confidence rooted in Christ's resurrection, not passive wishful thinking.</div>
+            <div class="cool-point"><strong>Redemption through Christ's Blood:</strong> You've been purchased from futility at infinite cost, which obligates you to live for him.</div>
+            <div class="cool-point"><strong>Tested Faith:</strong> Suffering refines faith the way fire refines gold, proving its genuineness and producing authenticity.</div>
+            <div class="cool-point"><strong>Suffering as Purposeful:</strong> Trials are not punitive but refinement—God is investing in your maturity and glory.</div>
+            <div class="cool-point"><strong>Resurrection Power:</strong> The living hope and regeneration of believers flow from the present-tense power of Christ's resurrection.</div>
+        </div>
+
+        <!-- Cross References -->
+        <div class="verse-card">
+            <h2>Cross-References</h2>
+            <div class="cross-ref">
+                <div class="passage">1 Corinthians 13:12</div>
+                <div class="explanation">Paul writes about seeing "face to face" in the future, which echoes Peter's "living hope" oriented toward ultimate revelation of Christ. Both apostles ground present suffering in future glory.</div>
+            </div>
+            <div class="cross-ref">
+                <div class="passage">Romans 5:3-4</div>
+                <div class="explanation">Paul writes that tribulation produces perseverance, perseverance produces proven character. Peter's idea of trials refining faith aligns with Paul's understanding of suffering producing character development.</div>
+            </div>
+            <div class="cross-ref">
+                <div class="passage">Hebrews 9:12</div>
+                <div class="explanation">The phrase "by his own blood he entered the holy of holies" parallels Peter's emphasis on Christ's precious blood as the price of redemption. Both emphasize the infinite value of Christ's blood.</div>
+            </div>
+            <div class="cross-ref">
+                <div class="passage">Exodus 12:5 (Passover Lamb)</div>
+                <div class="explanation">Peter's reference to Christ as "a lamb without blemish or defect" directly evokes the Passover lamb, showing how Christ's redemption fulfills the OT sacrificial system.</div>
+            </div>
+        </div>
+
+        <!-- Character Bios -->
+        <div class="verse-card">
+            <h2>Key People</h2>
+            <div class="person-bio">
+                <h5>Peter (Simon Peter)</h5>
+                <div class="role">Apostle, Author</div>
+                <p><strong>Background:</strong> A fisherman from Bethsaida who became one of Jesus's first disciples. Impulsive, passionate, often stumbling but ultimately devoted. He witnessed Christ's ministry, crucifixion, and resurrection.</p>
+                <p><strong>Role in 1 Peter 1:</strong> Peter writes from the perspective of one who has suffered for his faith (he was imprisoned and flogged for preaching Christ). He understands persecution not theoretically but experientially. His authority comes from both his apostolic commission and his personal experience of enduring suffering for Christ's sake.</p>
+                <div class="key-moment">Denied Jesus three times, then restored by Jesus in John 21</div>
+                <div class="key-moment">Witnessed Pentecost and led the Jerusalem church</div>
+                <div class="key-moment">Traveled to Asia Minor with Paul and missionary companions</div>
+                <p><strong>Legacy:</strong> Peter's emphasis on hope in suffering has comforted persecuted Christians for 2,000 years. His willingness to draw on his own pain when writing to others demonstrates the power of apostolic suffering.</p>
+            </div>
+
+            <div class="person-bio">
+                <h5>Jesus Christ</h5>
+                <div class="role">The Risen Lord, Source of Redemption</div>
+                <p><strong>Role in 1 Peter 1:</strong> Christ is the center of everything. His resurrection is the foundation of living hope. His blood is the price of redemption. His future revelation is the ultimate goal of believers' faith. Peter doesn't speak of abstract theology; he speaks of the risen Jesus whose power and worth sustain believers through suffering.</p>
+                <div class="key-moment">His resurrection guarantees the living hope of all believers</div>
+                <div class="key-moment">His precious blood ransomed believers from futile ways</div>
+                <div class="key-moment">His future revelation will vindicate the tested faith of persecuted believers</div>
+                <p><strong>Why he matters:</strong> For Peter's audience facing persecution, Jesus is not a memory but a present reality and future hope. He is the reason suffering is purposeful and the guarantee that persecution is not the end of the story.</p>
+            </div>
+
+            <div class="person-bio">
+                <h5>The Persecuted Believers (The Audience)</h5>
+                <div class="role">Recipients of Peter's Letter</div>
+                <p><strong>Background:</strong> Christians scattered throughout Asia Minor, likely a mix of Jewish converts and Gentile converts. They're facing social hostility, legal pressure, and possibly violence from pagan neighbors and Roman authorities.</p>
+                <p><strong>Their Struggle:</strong> They're asking: "Is faith worth it? Should we go back to paganism to fit in and avoid suffering?" Peter addresses this struggle directly.</p>
+                <div class="key-moment">Experiencing grief and sorrow from various trials</div>
+                <div class="key-moment">Potentially questioning the value of their inheritance in Christ</div>
+                <p><strong>Peter's Message to Them:</strong> Your suffering is not meaningless; it's refining your faith. You have a living hope rooted in Christ's resurrection. You've been ransomed from futility at infinite cost. Hold firm. Glory awaits.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>1 Peter 1</strong> | Bible Commentary</p>
+        <p>Generated using Bible Commentary Skill | Mobile-optimized for deep Scripture study</p>
+        <p style="margin-top: 1rem; color: var(--text-dim);">If you're facing persecution or suffering for your faith, Peter's words of living hope are written directly to you. Your faith matters. Your suffering is not wasted.</p>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            const card = event.target.closest('.verse-card');
+            const buttons = card.querySelectorAll('.tab-button');
+            const contents = card.querySelectorAll('.tab-content');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            card.querySelector(`#${tabName}`).classList.add('active');
+        }
+
+        function toggleAnswer(event) {
+            const btn = event.target.closest('.question-btn');
+            const answer = btn.nextElementSibling;
+            
+            btn.classList.toggle('expanded');
+            answer.classList.toggle('expanded');
+        }
+
+        function scrollToVerse(verseNum) {
+            const verse = document.querySelector(`[data-verse="${verseNum}"]`);
+            if (verse) {
+                verse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function filterTheme(theme) {
+            const cards = document.querySelectorAll('.verse-card');
+            const chips = document.querySelectorAll('.theme-chip');
+
+            chips.forEach(chip => chip.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (card.dataset.themes) {
+                    if (card.dataset.themes.includes(theme)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Initialize verse pills
+        document.addEventListener('DOMContentLoaded', () => {
+            const pills = document.querySelectorAll('.verse-pill');
+            window.addEventListener('scroll', () => {
+                let currentVerse = '3';
+                document.querySelectorAll('.verse-card').forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < 300) {
+                        currentVerse = card.dataset.verse || currentVerse;
+                    }
+                });
+                pills.forEach(pill => pill.classList.remove('active'));
+                document.querySelector(`.verse-pill[onclick="scrollToVerse('${currentVerse}')"]`)?.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

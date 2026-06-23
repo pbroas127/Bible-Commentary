@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galatians 1 | Bible Commentary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #c8a45a;
+            --accent-rgb: 200, 164, 90;
+            --bg: #0c0b09;
+            --surface: #1a1814;
+            --surface-light: #2a251f;
+            --text: #f5f5f0;
+            --text-muted: #a8a8a0;
+            --text-dim: #7a7a70;
+            --border: #3a3530;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+        h1 { font-size: 2.5rem; line-height: 1.1; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.4rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(var(--accent-rgb), 0.3); transition: all 0.2s; }
+        a:hover { border-bottom-color: var(--accent); }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .hero h1 { color: var(--accent); font-size: 3rem; margin-bottom: 0.5rem; }
+        .hero .chapter-num { font-size: 5rem; color: rgba(var(--accent-rgb), 0.15); margin: 0; line-height: 1; }
+        .hero .key-verse { font-size: 1.1rem; color: var(--text-muted); font-style: italic; margin-top: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* Sticky Nav */
+        .sticky-nav {
+            position: sticky;
+            top: 8rem;
+            background: rgba(26, 24, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            overflow-x: auto;
+            z-index: 9;
+            margin-bottom: 2rem;
+        }
+
+        .verse-pills {
+            display: flex;
+            gap: 0.5rem;
+            min-width: min-content;
+        }
+
+        .verse-pill {
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .verse-pill:hover, .verse-pill.active {
+            background: var(--surface-light);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Theme Filters */
+        .theme-filters {
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .theme-filters h3 { margin-top: 0; }
+
+        .theme-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .theme-chip {
+            padding: 0.4rem 1rem;
+            background: rgba(var(--accent-rgb), 0.1);
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            border-radius: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .theme-chip:hover, .theme-chip.active {
+            background: rgba(var(--accent-rgb), 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Verse Card */
+        .verse-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .verse-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.5);
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .verse-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .verse-ref {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            font-weight: 700;
+        }
+
+        .verse-text {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            flex: 1;
+        }
+
+        /* Tabs */
+        .tabs {
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tab-button:hover, .tab-button.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Content blocks */
+        .content-block {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .content-block h4 {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .content-block p {
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .greek-word {
+            background: rgba(var(--accent-rgb), 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .greek-word .word {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .greek-word .transliteration {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .greek-word .gloss {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .wow-box {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+            border: 2px solid rgba(var(--accent-rgb), 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: var(--text);
+            font-size: 1.05rem;
+        }
+
+        .wow-box::before {
+            content: "✨ ";
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .cool-point {
+            background: var(--surface-light);
+            border-left: 3px solid rgba(var(--accent-rgb), 0.5);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+            color: var(--text);
+        }
+
+        .cool-point::before {
+            content: "⚡ ";
+            color: var(--accent);
+        }
+
+        .question-answer {
+            margin: 1.5rem 0;
+            background: var(--surface-light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .question-btn {
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .question-btn:hover {
+            background: rgba(var(--accent-rgb), 0.05);
+            color: var(--accent);
+        }
+
+        .question-btn .icon {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .question-btn.expanded .icon {
+            transform: rotate(180deg);
+        }
+
+        .answer {
+            padding: 1rem;
+            color: var(--text-muted);
+            display: none;
+            line-height: 1.8;
+        }
+
+        .answer.expanded {
+            display: block;
+        }
+
+        .cross-ref {
+            background: rgba(var(--accent-rgb), 0.05);
+            border-left: 3px solid rgba(var(--accent-rgb), 0.5);
+            padding: 1rem;
+            margin: 0.75rem 0;
+            border-radius: 4px;
+        }
+
+        .cross-ref .passage {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cross-ref .explanation {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .person-bio {
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, rgba(var(--accent-rgb), 0.02) 100%);
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .person-bio h5 {
+            color: var(--accent);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .person-bio .role {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .person-bio p {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .person-bio .key-moment {
+            background: rgba(var(--accent-rgb), 0.1);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            padding-bottom: 3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin: 0.25rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .chapter-num { font-size: 3rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.4rem; }
+            
+            .verse-card {
+                padding: 1.5rem;
+            }
+
+            .verse-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .tabs {
+                gap: 0;
+                border-bottom: none;
+            }
+
+            .tab-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+                border-bottom: 2px solid transparent;
+                margin-bottom: 1rem;
+            }
+
+            .sticky-nav {
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Galatians</h1>
+        <div class="chapter-num">1</div>
+        <p class="key-verse">"I am astonished that you are so quickly deserting him who called you in the grace of Christ" — Galatians 1:6</p>
+    </div>
+
+    <div class="sticky-nav">
+        <div class="verse-pills">
+            <div class="verse-pill active" onclick="scrollToVerse('1')">1</div>
+            <div class="verse-pill" onclick="scrollToVerse('2')">2</div>
+            <div class="verse-pill" onclick="scrollToVerse('3')">3</div>
+            <div class="verse-pill" onclick="scrollToVerse('4')">4</div>
+            <div class="verse-pill" onclick="scrollToVerse('5')">5</div>
+            <div class="verse-pill" onclick="scrollToVerse('6')">6</div>
+            <div class="verse-pill" onclick="scrollToVerse('7')">7</div>
+            <div class="verse-pill" onclick="scrollToVerse('8')">8</div>
+            <div class="verse-pill" onclick="scrollToVerse('9')">9</div>
+            <div class="verse-pill" onclick="scrollToVerse('10')">10</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="theme-filters">
+            <h3>Filter by Theme</h3>
+            <div class="theme-chips">
+                <div class="theme-chip active" onclick="filterTheme('Authority')">Authority</div>
+                <div class="theme-chip" onclick="filterTheme('Gospel')">Gospel</div>
+                <div class="theme-chip" onclick="filterTheme('Calling')">Calling</div>
+                <div class="theme-chip" onclick="filterTheme('Grace')">Grace</div>
+                <div class="theme-chip" onclick="filterTheme('False Teaching')">False Teaching</div>
+            </div>
+        </div>
+
+        <!-- Verse 1 -->
+        <div class="verse-card" data-verse="1" data-themes="Authority,Calling">
+            <div class="verse-header">
+                <span class="verse-ref">1</span>
+                <span class="verse-text">Paul, an apostle—not from men nor through man, but through Jesus Christ and God the Father, who raised him from the dead—</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'commentary')">Commentary</button>
+                <button class="tab-button" onclick="switchTab(event, 'deeper')">Deeper</button>
+                <button class="tab-button" onclick="switchTab(event, 'greek')">Greek</button>
+                <button class="tab-button" onclick="switchTab(event, 'cool')">Cool Points</button>
+                <button class="tab-button" onclick="switchTab(event, 'qa')">Q&A</button>
+            </div>
+
+            <div id="commentary" class="tab-content active">
+                <div class="content-block">
+                    <p>Paul opens his letter to the Galatians with his most forceful defense of his apostolic authority. This isn't a casual greeting—it's a theological declaration. The Galatian churches have been infiltrated by false teachers (Judaizers) who are questioning Paul's authority because he's not one of the Twelve. They're implying that since Paul didn't walk with Jesus during his earthly ministry, he's a second-rate apostle. So Paul immediately establishes his credentials: his authority comes directly from the risen Christ and God the Father, not from any human institution or approval.</p>
+                    <p>The phrase "not from men nor through man" is emphatic in Greek—Paul is saying "absolutely not through human mediation." He's not attacking the Twelve; he's simply asserting that his commission bypassed the Jerusalem hierarchy entirely. This sets up the entire argument of Galatians: the gospel he preaches is not dependent on Jerusalem's approval.</p>
+                </div>
+            </div>
+
+            <div id="deeper" class="tab-content">
+                <div class="content-block">
+                    <p><strong>What's under the surface:</strong> Authority in the early church wasn't settled. The Twelve had walked with Jesus physically; Paul hadn't. So there was a legitimate question: "Who determines who's an apostle?" Paul's answer: Jesus himself—through direct revelation and the resurrection power working through Paul's ministry. This means apostolic authority isn't bureaucratic; it's relational and real.</p>
+                    <div class="wow-box">Imagine if a CEO promoted you to VP, but the board said, "We don't think so—you didn't work your way up through our system." Paul is saying, "I don't need the board's approval. The CEO promoted me directly."</div>
+                </div>
+            </div>
+
+            <div id="greek" class="tab-content">
+                <div class="greek-word">
+                    <div class="word">ἀπόστολος (apostolos)</div>
+                    <div class="transliteration">ah-pos'-tol-os</div>
+                    <div class="gloss">apostle, one sent</div>
+                    <div class="definition">A messenger sent with full authority from the sender. In early Christianity, the Twelve had this title first, but Paul claims it equally because he was sent directly by the risen Christ. The word emphasizes mission and authorization more than title or position.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: Paul uses the word twice in this verse to hammer home his authority. He's not a subordinate; he's an apostle in the fullest sense.</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">διὰ (dia)</div>
+                    <div class="transliteration">dee'-ah</div>
+                    <div class="gloss">through</div>
+                    <div class="definition">The preposition here emphasizes agency and instrumentality. When Paul says his apostleship comes "through Jesus Christ," he means Christ is the active agent who commissioned him, not just a passive reference point.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: This tiny word carries all the weight of Paul's claim to equal authority with the Twelve.</div>
+                </div>
+            </div>
+
+            <div id="cool" class="tab-content">
+                <div class="cool-point">Paul's opening salvo is defensive but not apologetic—he's not asking permission; he's stating facts about his authority structure.</div>
+                <div class="cool-point">The phrase "who raised him from the dead" is significant. It's not just "God the Father," but "God the Father, who raised him from the dead." Paul links his authority directly to Christ's resurrection—the pivotal historical event that validates everything.</div>
+                <div class="cool-point">Notice Paul mentions all three—himself (an apostle), Jesus Christ (the source), and God the Father (the ultimate authority). This trinitarian structure subtly confirms that his authority is woven into the deepest fabric of Christian theology.</div>
+            </div>
+
+            <div id="qa" class="tab-content">
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        Why does Paul defend his apostolic authority so aggressively in Galatians 1?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>The Galatian churches are being targeted by false teachers who say, "Paul isn't a real apostle because he didn't get approved by the Jerusalem church." If Paul's authority crumbles, his gospel message goes down with it. So by defending his authority in the opening lines, Paul is protecting the gospel itself. His authority and his message are inseparable.</p>
+                    </div>
+                </div>
+
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        What does "not from men nor through man" tell us about Paul's understanding of authority?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>It tells us Paul believed authority is about connection, not hierarchy. He wasn't concerned with climbing a ladder or getting approval from Jerusalem. His connection to Jesus (through the resurrection appearance) and to God the Father gave him all the authorization he needed. Authority, in Paul's view, flows vertically from God, not horizontally through institutional channels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Verse 6 (Key Verse) -->
+        <div class="verse-card" data-verse="6" data-themes="Gospel,False Teaching,Grace">
+            <div class="verse-header">
+                <span class="verse-ref">6</span>
+                <span class="verse-text">I am astonished that you are so quickly deserting him who called you in the grace of Christ and are turning to a different gospel—</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab(event, 'commentary')">Commentary</button>
+                <button class="tab-button" onclick="switchTab(event, 'deeper')">Deeper</button>
+                <button class="tab-button" onclick="switchTab(event, 'greek')">Greek</button>
+                <button class="tab-button" onclick="switchTab(event, 'cool')">Cool Points</button>
+                <button class="tab-button" onclick="switchTab(event, 'qa')">Q&A</button>
+            </div>
+
+            <div id="commentary" class="tab-content active">
+                <div class="content-block">
+                    <p>This is the crisis point of the letter. Paul moves from his defense of apostolic authority to the heart of the problem: the Galatians have been seduced away from the gospel. The word "astonished" (in Greek, <em>thaumazō</em>) suggests Paul is genuinely shocked and disappointed. He expected better from them.</p>
+                    <p>The false teachers have convinced the Galatians to add something to the gospel: the ceremonial law of Moses, especially circumcision. So the Galatians are "deserting" God who called them and are "turning to a different gospel"—which isn't really a gospel at all (see verse 7). They've been seduced by a hybrid message that says, "Faith in Jesus is great, but you also need to keep the law."</p>
+                    <p>Paul's response is uncompromising: this is not a secondary issue or a matter of opinion. This is about the core of the gospel itself.</p>
+                </div>
+            </div>
+
+            <div id="deeper" class="tab-content">
+                <div class="content-block">
+                    <p><strong>What's under the surface:</strong> Paul is attacking the *logic* of salvation, not just behavior. The Judaizers were saying, "Yes, believe in Jesus, but the law still has authority over you—you need to be circumcised and keep the ceremonial laws." But if the law still has authority, then Jesus isn't the end of the law; he's just an addition to it. That flips the entire gospel upside down.</p>
+                    <p>Paul's concern: if you add the law to grace, you've actually *replaced* grace with a works-based system. You've made salvation something you earn, not something you receive.</p>
+                    <div class="wow-box">Imagine someone offered you a completely free house. Then they said, "By the way, you also need to work 40 hours a week forever to keep it." That's no longer a gift—it's now a job with a house attached. That's what the Judaizers were doing to the gospel.</div>
+                </div>
+            </div>
+
+            <div id="greek" class="tab-content">
+                <div class="greek-word">
+                    <div class="word">θαυμάζω (thaumazō)</div>
+                    <div class="transliteration">thow-mad'-zo</div>
+                    <div class="gloss">to be amazed, astonished</div>
+                    <div class="definition">To be struck with wonder or amazement, often with a note of disapproval or concern. Not just "I'm surprised," but "I'm deeply troubled and taken aback."</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: Paul's emotion is raw here. He's not calmly analyzing a theological problem; he's expressing genuine pain that his beloved churches have been so easily swayed.</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">μετατίθημι (metatithēmi)</div>
+                    <div class="transliteration">met-at-ith'-ay-mee</div>
+                    <div class="gloss">to desert, abandon, shift</div>
+                    <div class="definition">To move from one position to another; to abandon one allegiance for another. It's a military term—you're switching sides, deserting your post.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: Paul sees this as a defection. The Galatians aren't just adding something to the gospel; they're abandoning the one who called them. The shift is complete, not partial.</div>
+                </div>
+
+                <div class="greek-word">
+                    <div class="word">ἕτερος (heteros)</div>
+                    <div class="transliteration">het'-er-os</div>
+                    <div class="gloss">different, another (of a different kind)</div>
+                    <div class="definition">Not just "another" (allo), but "another of a different kind." The false gospel isn't the same thing with a twist; it's fundamentally *different* in nature from the true gospel.</div>
+                    <div style="margin-top: 0.75rem; color: var(--text-muted);">Why it matters: Paul is emphatic that this isn't a minor disagreement. It's not two versions of the same gospel; it's a completely different message.</div>
+                </div>
+            </div>
+
+            <div id="cool" class="tab-content">
+                <div class="cool-point">The phrase "called you in the grace of Christ" is crucial. God didn't call them to a law; he called them to grace. That calling is already complete and perfect. Adding the law is redundant at best, heretical at worst.</div>
+                <div class="cool-point">Paul says they're "so quickly" deserting. The Galatian churches were probably established just a few years before Paul wrote this. They didn't even have time to mature before they were already being seduced. This tells us how effective the false teachers were—and how susceptible new believers can be.</div>
+                <div class="cool-point">Notice Paul doesn't say, "They're preaching a gospel that's 80% right with a few problems." He says they're preaching "a different gospel." This suggests that mixing law and grace doesn't produce a diluted gospel; it produces a *false* gospel. The math of the gospel doesn't allow for compromise.</div>
+            </div>
+
+            <div id="qa" class="tab-content">
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        What's the difference between the "gospel" Paul taught and the "different gospel" the false teachers preached?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p><strong>Paul's gospel:</strong> Salvation is by faith in Jesus Christ alone. The law showed us we're sinners, but Christ's death and resurrection paid the penalty. Now we live by grace, not by keeping rules. The Holy Spirit empowers us to obey, not out of fear, but out of love.</p>
+                        <p><strong>False gospel:</strong> Salvation is by faith in Jesus *plus* the law. You must believe in Jesus, *and* you must follow the ceremonial laws, especially circumcision. Obedience to law is part of how you earn or maintain your salvation.</p>
+                        <p>The difference seems small, but it changes everything. One is grace; the other is works. One offers freedom; the other offers slavery.</p>
+                    </div>
+                </div>
+
+                <div class="question-answer">
+                    <button class="question-btn" onclick="toggleAnswer(event)">
+                        Why would the Galatians be tempted to add the law to faith in Jesus?
+                        <span class="icon">▼</span>
+                    </button>
+                    <div class="answer">
+                        <p>Several reasons: First, the law was given by God in the Old Testament, so it had authority. Second, the law gives you something concrete to do—rules, boundaries, clear expectations. Grace is harder to grasp. Third, the false teachers probably argued, "Look, even the Jerusalem church follows the law. If you want to be a real Christian, you should too." Fourth, people naturally want to earn their salvation—it feels safer to know you're doing something to deserve God's favor, rather than trusting in a gift you can't control.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="verse-card">
+            <h2>Chapter Overview</h2>
+            <div class="content-block">
+                <p><strong>The Crisis:</strong> Paul writes to the churches of Galatia in urgent tones. False teachers (the "Judaizers") have infiltrated the communities, telling the Gentile believers that faith in Jesus isn't enough—they must also follow the Jewish law, especially circumcision. The Galatians, seemingly so quickly convinced, have begun to turn away from Paul's message of grace alone.</p>
+
+                <p><strong>Paul's Strategy:</strong> Chapter 1 establishes two things: (1) Paul's apostolic authority is equal to that of the Jerusalem apostles because Jesus commissioned him directly, and (2) the gospel he preaches is not a human invention but a divine revelation. If Paul's authority crumbles, so does his message. If his gospel is just his opinion, why follow it? So Paul spends the first chapter defending both.</p>
+
+                <p><strong>The Stakes:</strong> This isn't a dispute about customs or preferences. This is about the heart of the gospel. If you add the law to grace, you've destroyed grace. You've turned the gospel back into a works-based system of self-effort and shame. Paul will spend chapters 2–3 systematically dismantling the Judaizers' position and chapters 4–6 explaining the implications of living by grace.</p>
+            </div>
+
+            <h3>Themes in This Chapter</h3>
+            <div class="cool-point"><strong>Authority:</strong> Paul establishes his apostolic authority as equal to the Twelve, sourced directly from the risen Christ.</div>
+            <div class="cool-point"><strong>Gospel:</strong> Paul defines the gospel as grace alone, faith alone, and Christ alone—without additions from the law.</div>
+            <div class="cool-point"><strong>Calling:</strong> God has called believers into grace, not into a hybrid system of grace-plus-law.</div>
+            <div class="cool-point"><strong>Grace:</strong> Grace is the central offer of God through Christ, and anything that compromises it compromises the entire message.</div>
+            <div class="cool-point"><strong>False Teaching:</strong> The Judaizers are spreading a "different gospel"—which isn't a gospel at all. Their message is fundamentally opposed to God's message of free grace.</div>
+        </div>
+
+        <!-- Cross References -->
+        <div class="verse-card">
+            <h2>Cross-References</h2>
+            <div class="cross-ref">
+                <div class="passage">Romans 1:1</div>
+                <div class="explanation">Paul uses identical language to defend his apostolic authority: "Paul, a servant of Christ Jesus, called to be an apostle." The language is consistent—Paul always grounds his authority in Christ's direct calling.</div>
+            </div>
+            <div class="cross-ref">
+                <div class="passage">1 Corinthians 15:8-11</div>
+                <div class="explanation">Paul narrates his encounter with the risen Christ: "Last of all, as to one untimely born, he appeared also to me." This is the event that validated his apostolic authority and the source of his gospel message.</div>
+            </div>
+            <div class="cross-ref">
+                <div class="passage">Acts 15:1-35</div>
+                <div class="explanation">The Jerusalem Council debates whether Gentile believers must follow the law. This is the historical context behind the Galatian crisis—some from the Jerusalem church were insisting that Gentiles be circumcised.</div>
+            </div>
+            <div class="cross-ref">
+                <div class="passage">Galatians 2:1-10</div>
+                <div class="explanation">Paul continues to defend his gospel by recounting his meeting with the Jerusalem apostles, showing how they affirmed his message of grace for the Gentiles, without requiring the law.</div>
+            </div>
+        </div>
+
+        <!-- Character Bios -->
+        <div class="verse-card">
+            <h2>Key People</h2>
+            <div class="person-bio">
+                <h5>Paul</h5>
+                <div class="role">Apostle, Author</div>
+                <p><strong>Background:</strong> A former Pharisee and persecutor of Christians who was radically converted after an encounter with the risen Christ on the Damascus Road. Became a missionary to the Gentiles.</p>
+                <p><strong>Role in Galatians 1:</strong> Paul establishes his authority as an apostle equal to the Twelve and introduces his gospel of grace. His deep concern for the Galatian churches drives the entire letter.</p>
+                <div class="key-moment">Encounter with risen Christ validated his apostolic authority</div>
+                <div class="key-moment">Received direct revelation of the gospel (not from the Jerusalem church)</div>
+                <p><strong>Legacy:</strong> Paul's insistence on grace alone, faith alone, and Christ alone became foundational to the Protestant Reformation and to evangelical Christianity.</p>
+            </div>
+
+            <div class="person-bio">
+                <h5>The Judaizers (False Teachers)</h5>
+                <div class="role">Opponents of Paul's Gospel</div>
+                <p><strong>Background:</strong> Jewish Christians (or close associates) who believed that following the law was still necessary for salvation. They may have been connected to the Jerusalem church but weren't officially sent by it.</p>
+                <p><strong>Role in Galatians 1:</strong> They're the unnamed opponents whom Paul attacks. They questioned Paul's authority and offered a "different gospel" that included the law alongside faith in Jesus.</p>
+                <div class="key-moment">Infiltrated the Galatian churches and convinced believers to be circumcised</div>
+                <div class="key-moment">Claimed to have the approval of the Jerusalem apostles (disputed by Paul)</div>
+                <p><strong>Why they matter:</strong> The Judaizers represent the perpetual temptation to make the gospel harder, to add human works to God's grace. This temptation hasn't disappeared; it appears in every generation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Galatians 1</strong> | Bible Commentary</p>
+        <p>Generated using Bible Commentary Skill | Mobile-optimized for deep Scripture study</p>
+        <p style="margin-top: 1rem; color: var(--text-dim);">Read with an open heart. This chapter addresses you personally if you're tempted to add anything to the gospel of grace.</p>
+    </div>
+
+    <script>
+        function switchTab(event, tabName) {
+            const card = event.target.closest('.verse-card');
+            const buttons = card.querySelectorAll('.tab-button');
+            const contents = card.querySelectorAll('.tab-content');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            card.querySelector(`#${tabName}`).classList.add('active');
+        }
+
+        function toggleAnswer(event) {
+            const btn = event.target.closest('.question-btn');
+            const answer = btn.nextElementSibling;
+            
+            btn.classList.toggle('expanded');
+            answer.classList.toggle('expanded');
+        }
+
+        function scrollToVerse(verseNum) {
+            const verse = document.querySelector(`[data-verse="${verseNum}"]`);
+            if (verse) {
+                verse.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function filterTheme(theme) {
+            const cards = document.querySelectorAll('.verse-card');
+            const chips = document.querySelectorAll('.theme-chip');
+
+            chips.forEach(chip => chip.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (card.dataset.themes) {
+                    if (card.dataset.themes.includes(theme)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Initialize verse pills
+        document.addEventListener('DOMContentLoaded', () => {
+            const pills = document.querySelectorAll('.verse-pill');
+            window.addEventListener('scroll', () => {
+                let currentVerse = '1';
+                document.querySelectorAll('.verse-card').forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < 300) {
+                        currentVerse = card.dataset.verse || currentVerse;
+                    }
+                });
+                pills.forEach(pill => pill.classList.remove('active'));
+                document.querySelector(`.verse-pill[onclick="scrollToVerse('${currentVerse}')"]`)?.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

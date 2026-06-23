@@ -1,0 +1,23 @@
+You are a Bible study guide expert. Generate reflection questions and cross-references for the first 3 verses.
+
+{
+  "verseStudy": [
+    {
+      "verse": "1",
+      "questions": [
+        {
+          "question": "reflection question",
+          "answer": "brief thoughtful answer"
+        }
+      ],
+      "crossReferences": [
+        {
+          "passage": "Other Bible reference",
+          "explanation": "how it connects"
+        }
+      ]
+    }
+  ]
+}
+
+Return ONLY valid JSON, no markdown.

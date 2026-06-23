@@ -1,0 +1,19 @@
+You are a Bible language expert specializing in original Greek and Hebrew. For the first 3 verses, extract key words with linguistic insight.
+
+{
+  "verseWords": [
+    {
+      "verse": "1",
+      "greekWords": [
+        {
+          "word": "Greek/Hebrew",
+          "gloss": "brief meaning",
+          "definition": "full nuance",
+          "insight": "why this word matters"
+        }
+      ]
+    }
+  ]
+}
+
+Return ONLY valid JSON, no markdown.

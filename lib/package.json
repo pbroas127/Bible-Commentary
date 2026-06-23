@@ -1,0 +1,25 @@
+{
+  "name": "@bible-commentary/skill",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "types": "./index.d.ts"
+    }
+  },
+  "files": [
+    "index.ts",
+    "index.d.ts",
+    "index.d.ts.map",
+    "types.ts",
+    "types.d.ts",
+    "types.d.ts.map",
+    "html-generator.ts",
+    "html-generator.d.ts",
+    "html-generator.d.ts.map",
+    "design-system.ts",
+    "design-system.d.ts",
+    "design-system.d.ts.map"
+  ]
+}
