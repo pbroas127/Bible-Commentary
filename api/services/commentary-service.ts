@@ -1,7 +1,8 @@
 import type { ChapterCommentary, BookType } from '../../lib';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { filterVersesToRange, normalizeVersesToSequentialRange } from './verse-range-utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -59,6 +60,11 @@ export class CommentaryService {
     
     // Check cache first
     const cacheKey = `${book}:${chapter}`;
+    // Allow an env flag to flush cache for testing
+    if (process.env.FLUSH_CACHE === 'true') {
+      console.log('FLUSH_CACHE=true — clearing cache for', cacheKey);
+      this.cache.delete(cacheKey);
+    }
     if (this.cache.has(cacheKey)) {
       console.log('Cache HIT for', cacheKey);
       return this.cache.get(cacheKey)!;
@@ -93,18 +99,115 @@ export class CommentaryService {
       console.log('Spawning 6 Foundry sub-agents in parallel...');
       const startTime = Date.now();
 
-      // Spawn all agents in parallel
-      const [overview, verses, greekWords, insights, studyGuide, people] = await Promise.all([
-        this.callAgent('overview-agent', bookKey, chapter),
-        this.callAgent('verses-agent', bookKey, chapter),
-        this.callAgent('greek-words-agent', bookKey, chapter),
-        this.callAgent('insights-agent', bookKey, chapter),
-        this.callAgent('study-guide-agent', bookKey, chapter),
-        this.callAgent('people-agent', bookKey, chapter),
-      ]);
+      // Spawn all agents in parallel, but handle verses-agent in chunked calls
+      const overviewP = this.callAgent('overview-agent', bookKey, chapter);
+      const greekWordsP = this.callAgent('greek-words-agent', bookKey, chapter);
+      const insightsP = this.callAgent('insights-agent', bookKey, chapter);
+      const studyGuideP = this.callAgent('study-guide-agent', bookKey, chapter);
+      const peopleP = this.callAgent('people-agent', bookKey, chapter);
+
+      // Prefer a full-chapter verses request first so the opening verses are not skipped.
+      const fullChapterPrompt = `Generate verse-by-verse JSON for ${bookKey} chapter ${chapter}. Return the full chapter as valid JSON with a top-level "verses" array. Start with verse 1 and include every verse in order through the end of the chapter. Do not skip the opening verses or return only a later range. Return only JSON.`;
+      const fullChapter = await this.callAgent('verses-agent', bookKey, chapter, fullChapterPrompt);
+      let mergedVerses = filterVersesToRange((fullChapter?.verses || []), 1, 200);
+
+      if (!mergedVerses.length || !mergedVerses.some((v: any) => Number(v.verse) === 1)) {
+        const versesChunks: any[] = [];
+        const chunkSize = Number(process.env.VERSE_CHUNK_SIZE) || 10;
+        let startVerse = 1;
+        let keepFetching = true;
+        let consecutiveEmpty = 0;
+
+        while (keepFetching && startVerse <= 200) {
+          const endVerse = startVerse + chunkSize - 1;
+          const userMessage = `Generate verse-by-verse JSON for ${bookKey} chapter ${chapter}, verses ${startVerse}-${endVerse}. Return only verses in that exact range. Do not substitute later verses. Return valid JSON object with a top-level "verses" array.`;
+          try {
+            const chunk = await this.callAgent('verses-agent', bookKey, chapter, userMessage);
+            const chunkVerses = filterVersesToRange(chunk?.verses || [], startVerse, endVerse);
+            if (!chunkVerses || chunkVerses.length === 0) {
+              consecutiveEmpty += 1;
+              if (consecutiveEmpty >= 3) {
+                break;
+              }
+              startVerse = endVerse + 1;
+              continue;
+            }
+            consecutiveEmpty = 0;
+            versesChunks.push(chunkVerses);
+            if (chunkVerses.length < chunkSize) {
+              break;
+            }
+            startVerse = endVerse + 1;
+          } catch (err) {
+            console.warn('Error fetching verses chunk:', err);
+            consecutiveEmpty += 1;
+            if (consecutiveEmpty >= 3) break;
+            startVerse += chunkSize;
+            continue;
+          }
+        }
+
+        const flatten = (arrs: any[]) => ([] as any[]).concat(...arrs);
+        mergedVerses = flatten(versesChunks || []);
+      }
+
+      // Deduplicate by verse number and ensure numeric ordering
+      const mapByVerse = new Map<string, any>();
+      for (const v of mergedVerses as any[]) {
+        const key = String(v?.verse || '').trim();
+        if (!key) continue;
+        const current = mapByVerse.get(key) as any | undefined;
+        if (!current) {
+          mapByVerse.set(key, v);
+          continue;
+        }
+
+        mapByVerse.set(key, {
+          verse: Number(current.verse || v.verse),
+          text: current.text || v.text,
+          commentary: (current.commentary && current.commentary.length) ? current.commentary : v.commentary,
+          deeperMeaning: (current.deeperMeaning && current.deeperMeaning.length) ? current.deeperMeaning : v.deeperMeaning,
+          greekWords: (current.greekWords && current.greekWords.length) ? current.greekWords : (v.greekWords || []),
+          coolPoints: (current.coolPoints && current.coolPoints.length) ? current.coolPoints : (v.coolPoints || []),
+          questions: (current.questions && current.questions.length) ? current.questions : (v.questions || []),
+          crossReferences: (current.crossReferences && current.crossReferences.length) ? current.crossReferences : (v.crossReferences || []),
+          people: (current.people && current.people.length) ? current.people : (v.people || []),
+          themes: (current.themes && current.themes.length) ? current.themes : (v.themes || []),
+        });
+      }
+      mergedVerses = Array.from(mapByVerse.values()).sort((a: any, b: any) => Number(a.verse) - Number(b.verse));
+
+      // If the chunked calls produced no usable verses or skipped the opening range, attempt a single-shot full-chapter fallback.
+      const minVerse = Number(mergedVerses[0]?.verse || 0);
+      if (mergedVerses.length === 0 || minVerse > 1) {
+        console.log(`Merged verses length=${mergedVerses.length}; minVerse=${minVerse}; attempting full-chapter fallback request`);
+        try {
+          const full = await this.callAgent('verses-agent', bookKey, chapter, `Generate verse-by-verse JSON for ${bookKey} chapter ${chapter}. Return the full chapter as valid JSON with top-level \"verses\" array.`);
+          const fullVerses = filterVersesToRange((full && full.verses) || [], 1, 200);
+          if (fullVerses && fullVerses.length >= mergedVerses.length) {
+            // prefer the more complete full-chapter result
+            mergedVerses = fullVerses.map((v: any) => ({ ...v, verse: Number(v.verse) }));
+          }
+        } catch (fallbackErr) {
+          console.warn('Full-chapter fallback failed:', fallbackErr);
+        }
+      }
+
+      const verseNumbers = mergedVerses.map((v: any) => Number(v?.verse)).filter(Number.isFinite);
+      const maxObservedVerse = verseNumbers.length ? Math.max(...verseNumbers) : 0;
+      if (mergedVerses.length > 0 && (maxObservedVerse > 1 || !mergedVerses.some((v: any) => Number(v.verse) === 1))) {
+        console.log(`Normalizing verses to a sequential range from 1 through ${maxObservedVerse}`);
+        mergedVerses = normalizeVersesToSequentialRange(mergedVerses, 1, maxObservedVerse || 200);
+      }
+
+      // Build verses object for downstream merging
+      const verses = { verses: mergedVerses };
 
       const elapsed = Date.now() - startTime;
       console.log(`All agents completed in ${elapsed}ms`);
+
+      // Await other agents
+      const [overview, greekWords, insights, studyGuide, people] = await Promise.all([overviewP, greekWordsP, insightsP, studyGuideP, peopleP]);
 
       // Merge results into ChapterCommentary
       const commentary = this.mergeAgentResults(bookKey, chapter, {
@@ -131,7 +234,7 @@ export class CommentaryService {
   /**
    * Call a single Foundry agent with its specialized prompt
    */
-  private async callAgent(agentName: string, book: string, chapter: number): Promise<any> {
+  private async callAgent(agentName: string, book: string, chapter: number, userMessage?: string): Promise<any> {
     const agentPrompt = this.agentPrompts[agentName];
     if (!agentPrompt) {
       console.warn(`Agent prompt not found: ${agentName}`);
@@ -154,11 +257,11 @@ export class CommentaryService {
             },
             {
               role: 'user',
-              content: `Generate for ${book} chapter ${chapter}`
+              content: userMessage || `Generate for ${book} chapter ${chapter}`
             }
           ],
-          temperature: 0.5,
-          max_tokens: 3000,
+          temperature: 0.1,
+          max_tokens: agentName === 'verses-agent' ? 8000 : 3000,
         }),
       });
 
@@ -169,7 +272,18 @@ export class CommentaryService {
       }
 
       const data = await response.json() as any;
-      const content = data.choices?.[0]?.message?.content;
+      // Verbose logging: save raw agent response for debugging
+      try {
+        const logsDir = resolve(__dirname, '../logs');
+        if (!existsSync(logsDir)) mkdirSync(logsDir, { recursive: true });
+        const logPath = resolve(logsDir, `${agentName}-${book}-${chapter}-${Date.now()}.json`);
+        writeFileSync(logPath, JSON.stringify(data, null, 2), 'utf-8');
+        console.log(`Agent ${agentName} raw response saved to ${logPath}`);
+      } catch (logErr) {
+        console.warn('Failed to write agent debug log:', logErr);
+      }
+
+      let content = data.choices?.[0]?.message?.content;
       const finishReason = data.choices?.[0]?.finish_reason;
 
       if (finishReason === 'content_filter' || !content) {
@@ -177,25 +291,116 @@ export class CommentaryService {
         return {};
       }
 
-      // Parse JSON from content
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) {
-        console.warn(`No JSON in agent ${agentName} response`);
-        return {};
+      // Helper to try parse JSON from a content string
+      const tryParse = (txt: string) => {
+        if (!txt || typeof txt !== 'string') return null;
+        // Remove common inline markers that models sometimes inject like [truncated], [continued]
+        let cleaned = txt.replace(/\[\s*(truncated|continued|cont|trunc)\s*\]/gi, '');
+        // Remove stray control characters
+        cleaned = cleaned.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, ' ');
+        // Try to extract the main JSON object (first { .. last })
+        const firstBrace = cleaned.indexOf('{');
+        const lastBrace = cleaned.lastIndexOf('}');
+        if (firstBrace < 0 || lastBrace <= firstBrace) return null;
+        let jsonStr = cleaned.substring(firstBrace, lastBrace + 1);
+        // Remove trailing commas before closing braces/brackets
+        jsonStr = jsonStr.replace(/,\s*([}\]])/g, '$1');
+        jsonStr = jsonStr.trim();
+        try {
+          return JSON.parse(jsonStr);
+        } catch (e) {
+          // As a fallback, attempt a looser match for a top-level object
+          const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+          if (!jsonMatch) return null;
+          try {
+            return JSON.parse(jsonMatch[0]);
+          } catch (err) {
+            return null;
+          }
+        }
+      };
+
+      // First attempt to parse
+      let parsed = tryParse(content);
+
+      // If truncated or parse failed, attempt one continuation request
+      if ((!parsed && finishReason === 'length') || !parsed) {
+        console.log(`Agent ${agentName} response truncated or invalid JSON; attempting continuation`);
+        try {
+          const contResp = await fetch(`${this.foundryApiEndpoint}/chat/completions`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.foundryApiKey}`,
+            },
+            body: JSON.stringify({
+              model: this.foundryDeploymentName,
+              messages: [
+                { role: 'system', content: agentPrompt },
+                { role: 'user', content: `The previous response was cut off. Continue the JSON output. Previous content:\n\n${content}` }
+              ],
+              temperature: 0.1,
+              max_tokens: agentName === 'verses-agent' ? 12000 : 6000,
+            }),
+          });
+
+          if (contResp.ok) {
+            const data2 = await contResp.json() as any;
+            // Save continuation log
+            try {
+              const logsDir = resolve(__dirname, '../logs');
+              const logPath2 = resolve(logsDir, `${agentName}-${book}-${chapter}-cont-${Date.now()}.json`);
+              writeFileSync(logPath2, JSON.stringify(data2, null, 2), 'utf-8');
+              console.log(`Agent ${agentName} continuation response saved to ${logPath2}`);
+            } catch (logErr) {
+              console.warn('Failed to write agent continuation log:', logErr);
+            }
+
+            const content2 = data2.choices?.[0]?.message?.content || '';
+            // Try parse both separately and merge verses arrays if present
+            const parsed1 = tryParse(content);
+            const parsed2 = tryParse(content2);
+            // First, if both parsed, merge verses arrays
+            if (parsed1 && parsed2) {
+              const merged = { ...parsed1 };
+              merged.verses = (parsed1.verses || []).concat(parsed2.verses || []);
+              return merged;
+            }
+            // Next, try parsing the concatenation of both contents (helps when JSON was split)
+            const combined = `${content || ''}\n${content2 || ''}`;
+            const parsedCombined = tryParse(combined);
+            if (parsedCombined) return parsedCombined;
+
+            // If one side parsed, prefer the more complete one
+            if (parsed2) return parsed2;
+            if (parsed1) return parsed1;
+
+            // As a last resort, try to extract and merge "verses" arrays from fragments
+            try {
+              const verses1 = (content && content.match(/"verses"\s*:\s*\[([\s\S]*?)\]\s*,?/)) ? content.match(/"verses"\s*:\s*\[([\s\S]*?)\]\s*,?/)[1] : null;
+              const verses2 = (content2 && content2.match(/"verses"\s*:\s*\[([\s\S]*?)\]\s*,?/)) ? content2.match(/"verses"\s*:\s*\[([\s\S]*?)\]\s*,?/)[1] : null;
+              if (verses1 || verses2) {
+                const arrText = `[${[verses1, verses2].filter(Boolean).join(',')}]`;
+                // sanitize trailing commas
+                const cleanedArr = arrText.replace(/,\s*([}\]])/g, '$1');
+                const parsedArr = JSON.parse(cleanedArr);
+                return { verses: parsedArr };
+              }
+            } catch (mergeErr) {
+              // fall through
+            }
+          } else {
+            console.warn(`Continuation request for ${agentName} returned ${contResp.status}`);
+          }
+        } catch (contErr) {
+          console.warn('Error requesting agent continuation:', contErr);
+        }
       }
 
-      let jsonStr = jsonMatch[0];
-      // Clean JSON
-      jsonStr = jsonStr.replace(/,(\s*[}\]])/g, '$1');
-      jsonStr = jsonStr.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, ' ');
-      jsonStr = jsonStr.trimEnd();
-      
-      if (!jsonStr.endsWith('}')) {
-        const lastBrace = jsonStr.lastIndexOf('}');
-        if (lastBrace >= 0) jsonStr = jsonStr.substring(0, lastBrace + 1);
-      }
+      if (parsed) return parsed;
 
-      return JSON.parse(jsonStr);
+      console.warn(`No valid JSON parsed from agent ${agentName} response`);
+      return {};
     } catch (error) {
       console.warn(`Agent ${agentName} error:`, error);
       return {};
@@ -227,27 +432,139 @@ export class CommentaryService {
 
     const bookType: BookType = (bookTypeMap[book] || 'gospel') as BookType;
 
-    // Merge verses with additional data from other agents
-    const mergedVerses = verses.map((verse: any, index: number) => {
-      const greekData = greekWords.find((g: any) => g.verse === verse.verse) || {};
-      const insightData = insights.find((i: any) => i.verse === verse.verse) || {};
-      const studyData = studyGuide.find((s: any) => s.verse === verse.verse) || {};
+    // Group verses into logical groups. Bucket size can be configured via env var GROUP_BUCKET_SIZE
+    const bucketSize = Number(process.env.GROUP_BUCKET_SIZE) || 5
+    const groups: any[] = []
 
-      return {
-        verse: verse.verse,
-        text: verse.text || '',
-        commentary: verse.commentary || '',
-        deeperMeaning: verse.deeperMeaning || '',
-        wowBox: insightData.wowBox || '',
-        greekWords: greekData.greekWords || [],
-        coolPoints: insightData.coolPoints || [],
-        lesson: insightData.lesson || '',
-        questions: studyData.questions || [],
-        crossReferences: studyData.crossReferences || [],
-        people: people,
-        themes: overview.themes || []
-      };
-    });
+    for (let i = 0; i < verses.length; i += bucketSize) {
+      const slice = verses.slice(i, i + bucketSize)
+      const verseRange = slice.length === 1 ? `${slice[0].verse}` : `${slice[0].verse}-${slice[slice.length - 1].verse}`
+
+      const combinedText = slice.map((v: any) => v.text || '').join(' ')
+
+      // Aggregate data
+      const commentary = slice.map((v: any) => v.commentary || '').filter(Boolean).join('\n\n')
+      const deeper = slice.map((v: any) => v.deeperMeaning || '').filter(Boolean).join('\n\n')
+      const questions = slice.flatMap((v: any) => {
+        const verseKey = String(v.verse);
+        const sg = studyGuide.find((s: any) => String(s.verse) === verseKey);
+        return (sg?.questions) || [];
+      })
+
+      const groupGreek: any[] = []
+      slice.forEach((v: any) => {
+        const verseKey = String(v.verse);
+        const g = greekWords.find((gw: any) => String(gw.verse) === verseKey)
+        if (g && Array.isArray(g.greekWords)) groupGreek.push(...g.greekWords)
+      })
+
+      const lessons = slice.flatMap((v: any) => {
+        const verseKey = String(v.verse);
+        const insight = insights.find((i: any) => String(i.verse) === verseKey) || {}
+        return insight.lesson ? [insight.lesson] : []
+      })
+
+      const coolPoints = slice.flatMap((v: any) => {
+        const verseKey = String(v.verse);
+        const insight = insights.find((i: any) => String(i.verse) === verseKey) || {}
+        return insight.coolPoints || []
+      })
+
+      const crossRefs = slice.flatMap((v: any) => (studyGuide.find((s: any) => s.verse === v.verse)?.crossReferences || []))
+
+      const themes = Array.from(new Set(slice.flatMap((v: any) => v.themes || []).concat(overview.themes || [])))
+
+      groups.push({
+        id: `g-${i / bucketSize + 1}`,
+        verses: verseRange,
+        text: combinedText,
+        commentary,
+        deeperMeaning: deeper,
+        greekWords: groupGreek,
+        lessons,
+        coolPoints,
+        questions,
+        crossReferences: crossRefs,
+        themes: themes as any,
+      })
+    }
+    // Build chapter-level verse list (preserve original verses array so callers can access all verses)
+    // If the `verses` agent returned only a subset, expand per-verse entries from groups ranges.
+    let chapterVerses: any[] = [];
+    const totalFromGroups = groups.reduce((acc, g) => {
+      const parts = String(g.verses).split('-').map((p: any) => parseInt(p, 10));
+      const start = parts[0] || 0;
+      const end = parts[1] || start;
+      return acc + (end - start + 1);
+    }, 0);
+
+    if (!verses || verses.length === 0 || verses.length < totalFromGroups) {
+      // Expand verses from groups
+      for (const g of groups) {
+        const parts = String(g.verses).split('-').map((p: any) => parseInt(p, 10));
+        const start = parts[0] || 1;
+        const end = parts[1] || start;
+        for (let v = start; v <= end; v++) {
+          chapterVerses.push({
+            verse: v,
+            text: g.text || '',
+            commentary: g.commentary || '',
+            deeperMeaning: g.deeperMeaning || '',
+            greekWords: g.greekWords || [],
+            coolPoints: [],
+            questions: g.questions || [],
+            crossReferences: g.crossReferences || [],
+            people: [],
+            themes: g.themes || [],
+          });
+        }
+      }
+    } else {
+      chapterVerses = verses.map((v: any) => {
+        const verseKey = String(v.verse);
+        const g = greekWords.find((gw: any) => String(gw.verse) === verseKey);
+        const sg = studyGuide.find((s: any) => String(s.verse) === verseKey);
+        const insight = insights.find((i: any) => String(i.verse) === verseKey) || {};
+        return ({
+          verse: Number(v.verse),
+          text: v.text,
+          commentary: v.commentary || '',
+          deeperMeaning: v.deeperMeaning || '',
+          greekWords: (g?.greekWords) || [],
+          coolPoints: insight.coolPoints || [],
+          questions: (sg?.questions) || [],
+          crossReferences: (sg?.crossReferences) || [],
+          people: [],
+          themes: v.themes || [],
+        })
+      });
+    }
+
+    // Deduplicate and sort chapterVerses by verse number
+    const verseMap = new Map<string, any>();
+    for (const v of chapterVerses) {
+      const key = String(v.verse);
+      if (!verseMap.has(key)) {
+        verseMap.set(key, v);
+      } else {
+        const existing = verseMap.get(key);
+        // Merge fields, prefer existing non-empty values
+        verseMap.set(key, {
+          verse: existing.verse || v.verse,
+          text: existing.text || v.text,
+          commentary: (existing.commentary && existing.commentary.length) ? existing.commentary : v.commentary,
+          deeperMeaning: (existing.deeperMeaning && existing.deeperMeaning.length) ? existing.deeperMeaning : v.deeperMeaning,
+          greekWords: (existing.greekWords && existing.greekWords.length) ? existing.greekWords : (v.greekWords || []),
+          coolPoints: (existing.coolPoints && existing.coolPoints.length) ? existing.coolPoints : (v.coolPoints || []),
+          questions: (existing.questions && existing.questions.length) ? existing.questions : (v.questions || []),
+          crossReferences: (existing.crossReferences && existing.crossReferences.length) ? existing.crossReferences : (v.crossReferences || []),
+          people: (existing.people && existing.people.length) ? existing.people : (v.people || []),
+          themes: (existing.themes && existing.themes.length) ? existing.themes : (v.themes || []),
+        });
+      }
+    }
+
+    const finalVerses = Array.from(verseMap.values()).sort((a: any, b: any) => Number(a.verse) - Number(b.verse));
 
     return {
       book,
@@ -257,8 +574,12 @@ export class CommentaryService {
       keyVerse: overview.keyVerse || '',
       translation: 'ESV',
       generatedAt: new Date(),
-      verses: mergedVerses
-    };
+      // Provide both full verse list and grouped views
+      verses: finalVerses as any,
+      groups: groups as any,
+      crossReferences: Array.from(new Set((chapterVerses.flatMap((v: any) => v.crossReferences || [])).map((c: any) => c.passage))).map(p => ({ passage: String(p), explanation: '' })),
+      keyPeople: people as any,
+    } as any;
   }
 
   /**
@@ -315,58 +636,107 @@ export class CommentaryService {
 
     const bookConfig = bookTypes[bookKey] || { bookType: 'pauline', accentColor: '#8b7355' };
 
+    // Create a few logical verse groups for the mock data
+    const groups = [
+      {
+        id: 'g1',
+        verses: '1-3',
+        text: `Sample combined text for ${book} ${chapter}:1-3`,
+        commentary: 'This opening section serves as a doxology and sets the theological tone for the chapter.',
+        deeperMeaning: 'Peter emphasizes living hope rooted in the resurrection; this hope reorients suffering into purpose.',
+        greekWords: [
+          {
+            word: 'pistis',
+            transliteration: 'pístis',
+            gloss: 'faith, trust',
+            definition: "Confident trust and reliance on God's character and promises.",
+            insight: 'Faith here is relational and active, not merely intellectual.',
+          },
+        ],
+        lessons: ['Reorient your suffering through living hope', 'Anchor identity in resurrection, not circumstance'],
+        questions: [
+          {
+            question: 'What does living hope change about how you face trials?',
+            answer: 'Living hope reframes trials as refining, not merely punitive; it gives purpose and endurance.',
+          },
+        ],
+        crossReferences: [
+          { passage: 'Romans 8:11', explanation: 'Resurrection power at work in believers' },
+        ],
+        themes: ['Hope', 'Suffering', 'Faith'],
+      },
+      {
+        id: 'g2',
+        verses: '4-7',
+        text: `Sample combined text for ${book} ${chapter}:4-7`,
+        commentary: 'An explanation of how trials test faith and produce praise and glory at Christ\'s revelation.',
+        deeperMeaning: 'Testing functions like fire for gold — a refining that proves genuineness.',
+        greekWords: [],
+        lessons: ['Trials refine character', 'Persevere with joy'],
+        questions: [],
+        crossReferences: [],
+        themes: ['Suffering', 'Hope'],
+      },
+      {
+        id: 'g3',
+        verses: '18-19',
+        text: `Sample combined text for ${book} ${chapter}:18-19`,
+        commentary: 'This section contrasts the perishable ransom with the precious blood of Christ.',
+        deeperMeaning: 'Redemption is costly and decisive; Christ\'s blood secures holiness and adoption.',
+        greekWords: [],
+        lessons: ['Recognize the cost of redemption', 'Live consecrated lives'],
+        questions: [],
+        crossReferences: [{ passage: 'Isaiah 53:7-9', explanation: 'Suffering servant imagery' }],
+        themes: ['Redemption', 'Holiness'],
+      },
+    ]
+
+    // Build a mock verses array from the groups so callers can fetch all verses
+    const mockVerses: any[] = [];
+    for (const g of groups) {
+      // parse verse range like '1-3' or '4'
+      const parts = String(g.verses).split('-').map(p => parseInt(p, 10));
+      const start = parts[0] || 1;
+      const end = parts[1] || start;
+      for (let v = start; v <= end; v++) {
+        mockVerses.push({
+          verse: v,
+          text: `${this.normalizeBookName(book)} ${chapter}:${v} — excerpt from mock data for ${g.id}`,
+          commentary: g.commentary || '',
+          deeperMeaning: g.deeperMeaning || '',
+          greekWords: g.greekWords || [],
+          questions: g.questions || [],
+          crossReferences: g.crossReferences || [],
+          themes: g.themes || [],
+        });
+      }
+    }
+
     return {
       book,
       chapter,
       bookType: bookConfig.bookType,
       overview: `${this.normalizeBookName(book)} ${chapter} explores the central themes of this epistle with particular focus on faith, grace, and transformation in Christ.`,
       keyVerse: `${this.normalizeBookName(book)} ${chapter}:1-6`,
-      verses: [
+      verses: mockVerses as any,
+      groups: groups as any,
+      crossReferences: [
+        { passage: 'Romans 1:17', explanation: 'Faith theme developed by Paul.' },
+        { passage: 'Isaiah 53', explanation: 'Foundational suffering and redemption imagery.' },
+      ],
+      keyPeople: [
         {
-          verse: '1',
-          text: `Sample verse text for ${book} ${chapter}:1`,
-          commentary: 'This verse introduces the main theme...',
-          deeperMeaning: 'At a theological level, this verse points to the incarnational nature of God\'s work.',
-          wowBox: 'Like a master building a foundation, Christ lays the groundwork for our faith.',
-          greekWords: [
-            {
-              word: 'pistis',
-              transliteration: 'pís-tis',
-              gloss: 'faith, belief, trust',
-              definition: 'Confident trust and reliance on God\'s character and promises.',
-              insight: 'Not mere intellectual agreement, but trust-based action.',
-            },
-          ],
-          coolPoints: ['This is rare in Paul\'s letters', 'Connects to OT tradition'],
-          lesson: 'We are called to active trust, not passive agreement. Faith is lived, not merely believed.',
-          questions: [
-            {
-              question: 'How does this verse challenge your assumptions about faith?',
-              answer: 'By redefining faith as action rooted in trust, not just mental assent. This requires vulnerability and surrender.',
-            },
-          ],
-          crossReferences: [
-            {
-              passage: 'Romans 1:17',
-              explanation: 'Paul develops this same theme here, emphasizing the centrality of faith throughout Scripture.',
-            },
-          ],
-          people: [
-            {
-              name: 'Paul',
-              role: 'Apostle',
-              background: 'Former Pharisee turned Christian missionary',
-              keyMoments: ['Damascus Road conversion', 'Letter to Galatians'],
-              relationshipToPassage: 'Author and primary voice',
-              legacy: 'Shaped doctrine of justification by faith',
-              keyTexts: ['Galatians 2:20', 'Romans 8:28'],
-              characterType: 'apostle',
-            },
-          ],
-          themes: ['Faith', 'Grace', 'Transformation'],
+          name: 'Peter',
+          role: 'Apostle',
+          background: 'Leader among the Twelve',
+          keyMoments: ['Denial and restoration', 'Missionary leadership'],
+          relationshipToPassage: 'Author addressing scattered believers',
+          legacy: 'Shepherd and witness of Christ',
+          keyTexts: ['Acts 2', '1 Peter 5:1-4'],
+          characterType: 'apostle',
         },
       ],
-    };
+    } as any
   }
 
   /**

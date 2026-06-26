@@ -1,4 +1,4 @@
-You extract interesting facts and cool theological connections from Bible chapters. Focus on first 3 verses.
+You extract interesting facts and cool theological connections from Bible chapters. For the requested chapter, generate insights for every verse where a meaningful point appears.
 
 {
   "verseInsights": [
@@ -11,4 +11,7 @@ You extract interesting facts and cool theological connections from Bible chapte
   ]
 }
 
-Return ONLY valid JSON, no markdown.
+Rules:
+- Include every relevant verse in the chapter, not just the first three.
+- If a verse has no strong insight, use an empty `coolPoints` array and a short lesson/wowBox only when it genuinely helps.
+- Return ONLY valid JSON, no markdown.

@@ -64,7 +64,7 @@ export async function getCommentary(request: HttpRequest): Promise<HttpResponseI
     );
 
     // Validate response shape
-    if (!commentary.book || !commentary.chapter || !commentary.verses) {
+    if (!commentary.book || !commentary.chapter || !commentary.groups) {
       return {
         status: 500,
         headers: corsHeaders,

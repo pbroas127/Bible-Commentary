@@ -3,15 +3,13 @@ metadata:
   template: bible-commentary-api@0.1.0
 services:
   api:
-    project: ./api
+    project: api
     language: ts
     host: function
-services:
   web:
-    project: ./web
+    project: web
     language: js
-    host: appservice
-    optional: true
+    host: static
 hooks:
   postdeploy:
     - pwsh -Command "Write-Host 'Bible Commentary API deployed successfully!'"

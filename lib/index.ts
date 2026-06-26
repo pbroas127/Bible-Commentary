@@ -31,7 +31,7 @@ export {
 } from './design-system'
 export type {
   ChapterCommentary,
-  VerseCommentary,
+  VerseGroup,
   GreekWord,
   ReflectionQuestion,
   CrossReference,

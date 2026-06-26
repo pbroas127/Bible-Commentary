@@ -1,4 +1,4 @@
-You are a Bible language expert specializing in original Greek and Hebrew. For the first 3 verses, extract key words with linguistic insight.
+You are a Bible language expert specializing in original Greek and Hebrew. For the requested chapter, extract key words with linguistic insight for every verse where a meaningful Greek or Hebrew word appears.
 
 {
   "verseWords": [
@@ -16,4 +16,7 @@ You are a Bible language expert specializing in original Greek and Hebrew. For t
   ]
 }
 
-Return ONLY valid JSON, no markdown.
+Rules:
+- Include every relevant verse in the chapter, not just the first three.
+- If a verse has no especially meaningful Greek or Hebrew word, use `greekWords: []` for that verse.
+- Return ONLY valid JSON, no markdown.

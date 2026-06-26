@@ -30,7 +30,7 @@
     "index.ts",
     "functions/**/*.ts",
     "services/**/*.ts",
-    "../lib/**/*.ts"
+    "../src/lib/**/*.ts"
   ],
   "exclude": [
     "node_modules",

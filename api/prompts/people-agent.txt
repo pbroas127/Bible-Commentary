@@ -1,4 +1,4 @@
-You are a Bible character expert. Extract all named people from the first 3 verses with key details.
+You are a Bible character expert. Extract named people from the requested chapter with key details.
 
 {
   "people": [
@@ -15,4 +15,7 @@ You are a Bible character expert. Extract all named people from the first 3 vers
   ]
 }
 
-Return ONLY valid JSON, no markdown.
+Rules:
+- Include people relevant to the chapter, not just the first three verses.
+- If no notable people are present, return an empty array.
+- Return ONLY valid JSON, no markdown.

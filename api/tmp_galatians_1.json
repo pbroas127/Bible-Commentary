@@ -1,0 +1,125 @@
+{
+  "book": "galatians",
+  "chapter": 1,
+  "bookType": "pauline",
+  "overview": "Paul defends his apostolic authority, asserting that his gospel came directly from Christ, not from men, and he rebukes the Galatians for turning to a different gospel.",
+  "keyVerse": "Galatians 1:10 - For am I now seeking the approval of man, or of God?",
+  "translation": "ESV",
+  "generatedAt": "2026-06-25T18:57:46.753Z",
+  "groups": [
+    {
+      "id": "g-1",
+      "verses": "1-3",
+      "text": "Paul, an apostle—sent not from men nor by a man, but by Jesus Christ and God the Father, who raised him from the dead— and all the brothers and sisters with me, To the churches in Galatia: Grace and peace to you from God our Father and the Lord Jesus Christ,",
+      "commentary": "Paul immediately establishes his apostolic authority as divinely ordained, not derived from human commission. This assertion counters the Judaizers who questioned his legitimacy, emphasizing that his calling originates directly from the resurrected Christ and God the Father.\n\nPaul includes fellow believers as co-senders, indicating unity in his message and ministry. The address to 'churches in Galatia' suggests multiple congregations in the region, likely founded during his missionary journeys.\n\nThis standard Pauline greeting combines the Greek concept of 'grace' (charis) with the Hebrew concept of 'peace' (shalom), rooting both in the divine source. The pairing emphasizes that true spiritual blessing originates from the Father and Christ, not from human effort or law observance.",
+      "deeperMeaning": "This verse underscores the divine origin of Paul's mission, setting the foundation for his defense of the gospel against human alterations.\n\nThe collective authorship reinforces that the gospel is a shared truth, not a personal opinion, and the plural churches highlight the widespread nature of the doctrinal crisis.\n\nBy invoking grace and peace, Paul prefigures his central argument that salvation is a gift of grace through Christ, not earned by works.",
+      "greekWords": [
+        {
+          "word": "Παῦλος",
+          "gloss": "Paul",
+          "definition": "Apostle, originally named Saul; means 'small' or 'humble'",
+          "insight": "Paul's name change from Saul (meaning 'asked for') to Paulos (meaning 'small') reflects his transformation from persecutor to humble servant of Christ."
+        },
+        {
+          "word": "ἀπόστολος",
+          "gloss": "apostle",
+          "definition": "One sent forth with a commission; a delegate, messenger, one sent on a mission",
+          "insight": "Paul asserts his apostolic authority not from human appointment but directly from God, a key theme in Galatians as he defends his gospel against false teachers."
+        },
+        {
+          "word": "οὐκ ἀπʼ ἀνθρώπων",
+          "gloss": "not from men",
+          "definition": "Not originating from human source or authority",
+          "insight": "This emphatic denial (double negative in Greek) stresses that Paul's apostleship is divinely sourced, not humanly conferred, setting the stage for his argument against Judaizers."
+        },
+        {
+          "word": "ἐκκλησίαις",
+          "gloss": "churches",
+          "definition": "Assembly, congregation, the called-out ones; used for local Christian communities",
+          "insight": "Paul writes to multiple churches in Galatia, indicating the widespread influence of the false teaching and the need for a unified response to the gospel perversion."
+        },
+        {
+          "word": "Γαλατίας",
+          "gloss": "of Galatia",
+          "definition": "A Roman province in central Asia Minor (modern Turkey); region settled by Gauls",
+          "insight": "The Galatian churches were likely founded by Paul on his first missionary journey, making this letter both pastoral and corrective to a community he personally established."
+        },
+        {
+          "word": "σὺν ἐμοὶ",
+          "gloss": "with me",
+          "definition": "Together with me; in association with",
+          "insight": "Paul includes 'all the brothers with me' to show unity and collective witness, strengthening his authority and the communal nature of the gospel message he defends."
+        },
+        {
+          "word": "χάρις",
+          "gloss": "grace",
+          "definition": "Unmerited favor, kindness, graciousness; in Christian context, God's free gift of salvation",
+          "insight": "Grace is the foundational concept of Paul's gospel—salvation by grace alone, not works—making its mention here a subtle rebuke to the Galatians' turn to legalism."
+        },
+        {
+          "word": "εἰρήνη",
+          "gloss": "peace",
+          "definition": "Harmony, wholeness, well-being; from Hebrew shalom, denoting comprehensive peace with God and others",
+          "insight": "Paul pairs grace and peace as a standard greeting, but here it also contrasts the turmoil caused by false teachers with the true peace that comes from the gospel of Christ."
+        },
+        {
+          "word": "ἀπὸ Θεοῦ Πατρὸς",
+          "gloss": "from God the Father",
+          "definition": "Originating from God as Father; source of all blessing and authority",
+          "insight": "Emphasizing the divine source of grace and peace reinforces Paul's earlier point that his apostleship and message come from God, not human tradition or law."
+        }
+      ],
+      "lessons": [
+        "Your identity and calling in Christ come from God, not from human approval or credentials; seek validation from Him alone.",
+        "Christian ministry is never a solo endeavor; surround yourself with fellow believers who share your mission and support you.",
+        "Start every interaction with grace and peace, remembering that these are gifts from God, not human achievements."
+      ],
+      "questions": [
+        {
+          "question": "Paul emphasizes that he is an apostle 'not from men nor through man, but through Jesus Christ and God the Father.' Why do you think Paul felt the need to defend his apostolic authority right at the beginning of this letter?",
+          "answer": "Paul's authority was being challenged by false teachers in Galatia who claimed he was not a true apostle. By stating his divine commission, he establishes that his gospel message comes directly from God, not from human origin."
+        },
+        {
+          "question": "Paul includes 'all the brothers who are with me' in his greeting. What does this inclusion suggest about Paul's approach to ministry and community?",
+          "answer": "It shows Paul did not operate alone but valued partnership and unity with fellow believers. It also adds weight to his message, showing he is not a solitary figure but part of a larger community that supports his teachings."
+        },
+        {
+          "question": "Paul's standard greeting includes 'grace and peace.' Why do you think he specifically mentions 'God our Father and the Lord Jesus Christ' as the source of these blessings?",
+          "answer": "By linking grace and peace to both God the Father and Jesus Christ, Paul emphasizes the divine origin of salvation and the unity of the Father and Son in providing spiritual blessings. It also counters false teachings that might separate Jesus from God."
+        }
+      ],
+      "crossReferences": [
+        {
+          "passage": "Acts 9:3-6",
+          "explanation": "Describes Paul's conversion and direct calling by Jesus on the road to Damascus, confirming his apostleship came from Christ, not men."
+        },
+        {
+          "passage": "1 Corinthians 1:1",
+          "explanation": "Paul similarly identifies himself as an apostle by the will of God, reinforcing his divine appointment."
+        },
+        {
+          "passage": "Philippians 1:1",
+          "explanation": "Paul often greets churches with co-workers, highlighting the communal nature of his ministry."
+        },
+        {
+          "passage": "Acts 15:22",
+          "explanation": "The early church sent representatives together, showing the pattern of collective witness and authority."
+        },
+        {
+          "passage": "Romans 1:7",
+          "explanation": "Paul uses a similar greeting, showing grace and peace come from God the Father and the Lord Jesus Christ."
+        },
+        {
+          "passage": "John 1:17",
+          "explanation": "Grace and truth came through Jesus Christ, connecting the greeting to the fulfillment of the law."
+        }
+      ],
+      "themes": [
+        "Apostolic authority",
+        "The true gospel",
+        "Grace versus works",
+        "Divine revelation"
+      ]
+    }
+  ]
+}

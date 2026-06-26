@@ -6,7 +6,7 @@
  *   fs.writeFileSync(`${book}-${chapter}.html`, html)
  */
 
-import { ChapterCommentary, VerseCommentary, GreekWord, ReflectionQuestion } from './types'
+import { ChapterCommentary, VerseGroup, GreekWord, ReflectionQuestion } from './types'
 import { DESIGN_SYSTEM, generateCSSVariables, GLOBAL_CSS, THEME_CSS } from './design-system'
 
 export function generateCommentaryHTML(data: ChapterCommentary): string {
@@ -32,7 +32,8 @@ export function generateCommentaryHTML(data: ChapterCommentary): string {
   <div class="container">
     ${generateHero(data)}
     ${generateOverview(data)}
-    ${data.verses.map((v, i) => generateVerseCard(v, i)).join('')}
+    ${data.groups.map((g, i) => generateGroupCard(g, i)).join('')}
+    ${generateChapterLevelExtras(data)}
     ${generateFooter(data)}
   </div>
 </body>
@@ -60,88 +61,94 @@ function generateOverview(data: ChapterCommentary): string {
     </div>
   `.trim()
 }
-
-function generateVerseCard(verse: VerseCommentary, index: number): string {
-  const themesStr = verse.themes.join('|')
+ 
+function generateChapterLevelExtras(data: ChapterCommentary): string {
+  const crossRefs = data.crossReferences || []
+  const people = data.keyPeople || []
 
   return `
-    <div class="verse-card" data-themes="${themesStr}" id="verse-${index}">
+    ${crossRefs.length > 0 ? `
+      <div class="overview-card">
+        <h3>Cross References</h3>
+        ${crossRefs.map(cr => generateCrossRef(cr)).join('')}
+      </div>
+    ` : ''}
+
+    ${people.length > 0 ? `
+      <div class="overview-card">
+        <h3>Key People</h3>
+        ${people.map(p => generatePersonBio(p)).join('')}
+      </div>
+    ` : ''}
+  `.trim()
+}
+
+function generateGroupCard(group: VerseGroup, index: number): string {
+  const themesStr = group.themes.join('|')
+
+  return `
+    <div class="verse-card" data-themes="${themesStr}" id="group-${index}">
       <details class="verse-details" open>
         <summary class="verse-card-header">
-          <div class="verse-number">Verse ${verse.verse}</div>
-          <div class="verse-text">"${verse.text}"</div>
+          <div class="verse-number">${group.verses}</div>
+          <div class="verse-text">"${group.text}"</div>
         </summary>
-        
+
         <div class="verse-card-content">
-          <details class="section-detail">
-            <summary class="section-title">💬 Commentary</summary>
-            <div class="section-content">
-              <p>${verse.commentary}</p>
+          <table class="group-table">
+            <tbody>
+              <tr>
+                <th>Commentary</th>
+                <td><div class="section-content"><p>${group.commentary}</p></div></td>
+              </tr>
+              <tr>
+                <th>Deeper Meaning</th>
+                <td><div class="section-content"><p>${group.deeperMeaning}</p></div></td>
+              </tr>
+              <tr>
+                <th>Greek Words</th>
+                <td>
+                  <div class="section-content">
+                    ${group.greekWords && group.greekWords.length > 0 ? group.greekWords.map(w => generateGreekWord(w)).join('') : '<em>—</em>'}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>Lessons</th>
+                <td>
+                  <div class="section-content">
+                    <ul class="lessons-list">
+                      ${group.lessons.map(l => `<li>${l}</li>`).join('')}
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>Cool Points</th>
+                <td>
+                  <div class="section-content">
+                    ${group.coolPoints && group.coolPoints.length > 0 ? `<ul class="coolpoints-list">${group.coolPoints.map(cp => `<li>${cp}</li>`).join('')}</ul>` : '<em>—</em>'}
+                  </div>
+                </td>
+              </tr>
+              ${group.questions && group.questions.length > 0 ? `
+              <tr>
+                <th>Reflection</th>
+                <td>
+                  <div class="section-content">
+                    ${group.questions.map((q, qi) => generateQuestion(q, `${index}-q-${qi}`)).join('')}
+                  </div>
+                </td>
+              </tr>
+              ` : ''}
+            </tbody>
+          </table>
+
+          ${group.crossReferences && group.crossReferences.length > 0 ? `
+            <div class="group-crossrefs">
+              <h4>Cross References</h4>
+              ${group.crossReferences.map(cr => generateCrossRef(cr)).join('')}
             </div>
-          </details>
-
-          <details class="section-detail" open>
-            <summary class="section-title">🔍 Deeper Meaning</summary>
-            <div class="section-content">
-              <p>${verse.deeperMeaning}</p>
-              ${verse.wowBox ? `<div class="wow-box">✨ ${verse.wowBox}</div>` : ''}
-            </div>
-          </details>
-
-          ${verse.greekWords.length > 0 ? `
-            <details class="section-detail">
-              <summary class="section-title">🏛️ Greek Words</summary>
-              <div class="section-content">
-                ${verse.greekWords.map(w => generateGreekWord(w)).join('')}
-              </div>
-            </details>
-          ` : ''}
-
-          ${verse.coolPoints.length > 0 ? `
-            <details class="section-detail">
-              <summary class="section-title">⚡ Cool Points</summary>
-              <div class="section-content">
-                <ul class="cool-points">
-                  ${verse.coolPoints.map(point => `<li>${point}</li>`).join('')}
-                </ul>
-              </div>
-            </details>
-          ` : ''}
-
-          <details class="section-detail">
-            <summary class="section-title">📖 Lesson</summary>
-            <div class="section-content">
-              <p>${verse.lesson}</p>
-            </div>
-          </details>
-
-          ${verse.questions.length > 0 ? `
-            <details class="section-detail">
-              <summary class="section-title">❓ Reflection Questions</summary>
-              <div class="section-content">
-                <div class="questions-accordion">
-                  ${verse.questions.map((q, qi) => generateQuestion(q, `${index}-${qi}`)).join('')}
-                </div>
-              </div>
-            </details>
-          ` : ''}
-
-          ${verse.crossReferences.length > 0 ? `
-            <details class="section-detail">
-              <summary class="section-title">🔗 Cross References</summary>
-              <div class="section-content">
-                ${verse.crossReferences.map(cr => generateCrossRef(cr)).join('')}
-              </div>
-            </details>
-          ` : ''}
-
-          ${verse.people && verse.people.length > 0 ? `
-            <details class="section-detail">
-              <summary class="section-title">👤 Key People</summary>
-              <div class="section-content">
-                ${verse.people.map(p => generatePersonBio(p)).join('')}
-              </div>
-            </details>
           ` : ''}
         </div>
       </details>

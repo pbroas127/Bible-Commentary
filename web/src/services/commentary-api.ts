@@ -4,15 +4,16 @@ class CommentaryAPI {
   private apiUrl: string
 
   constructor() {
-    this.apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:7071'
+    this.apiUrl = import.meta.env.VITE_API_URL || ''
   }
 
   /**
    * Fetch commentary JSON from API
    */
   async getCommentary(book: string, chapter: number): Promise<ChapterCommentary> {
+    const baseUrl = this.apiUrl || window.location.origin
     const response = await fetch(
-      `${this.apiUrl}/api/commentary/${book}/${chapter}`
+      `${baseUrl}/api/commentary/${book}/${chapter}`
     )
 
     if (!response.ok) {

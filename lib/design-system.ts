@@ -398,6 +398,31 @@ export const THEME_CSS = `
   border-radius: 4px;
 }
 
+/* Group table layout to match reference styling */
+.group-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.group-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: var(--surface3);
+  color: var(--accent);
+  width: 28%;
+  vertical-align: top;
+  font-weight: 600;
+}
+.group-table td {
+  padding: 0.75rem 1rem;
+  border-left: 1px solid var(--border);
+}
+.lessons-list { list-style: disc; margin-left: 1rem; }
+
 .greek-char {
   font-size: 1.75rem;
   font-family: var(--font-serif);

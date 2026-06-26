@@ -1,4 +1,7 @@
 */node_modules/
 dist/
 api/local.settings.json
-node_modules/*
+node_modules/
+src/web/node_modules/
+infra/parameters.bicepparam
+node_modules/

@@ -3,19 +3,23 @@
  * Used to pass structured content to the HTML generator
  */
 
-export interface VerseCommentary {
-  verse: string; // "1", "2:1-3", etc.
-  text: string; // The actual verse text
-  commentary: string; // What's happening in context
-  deeperMeaning: string; // Theological/symbolic meaning
-  wowBox?: string; // Vivid analogy or insight
-  greekWords: GreekWord[];
-  coolPoints: string[]; // Array of surprising details
-  lesson: string; // One actionable takeaway
-  questions: ReflectionQuestion[];
-  crossReferences: CrossReference[];
-  people?: PersonBio[];
-  themes: Theme[]; // e.g., ["Gospel", "Grace", "Identity"]
+/**
+ * A verse group represents a logical section within a chapter that may
+ * span one or more verse numbers (e.g. "1", "6-7", "18-19"). Each group
+ * contains the named content blocks required by the UI.
+ */
+export interface VerseGroup {
+  id?: string; // optional stable id
+  verses: string; // e.g. "1", "6-7", "18-19"
+  text: string; // Combined verse text for the group
+  commentary: string; // Commentary block
+  deeperMeaning: string; // Deeper meaning block
+  greekWords: GreekWord[]; // Greek words relevant to the group
+  lessons: string[]; // One or more short lessons/takeaways
+  coolPoints?: string[]; // Optional interesting/cool facts or points
+  questions: ReflectionQuestion[]; // Reflection questions for the group
+  crossReferences?: CrossReference[]; // Optional cross-refs specific to this group
+  themes: Theme[];
 }
 
 export interface GreekWord {
@@ -72,7 +76,9 @@ export interface ChapterCommentary {
   translation?: string; // "ESV", "NIV", etc. — defaults to "ESV"
   overview: string; // One paragraph explaining the chapter context
   keyVerse: string; // Verse to highlight in hero section
-  verses: VerseCommentary[];
+  groups: VerseGroup[]; // Logical verse groups for the chapter
+  crossReferences?: CrossReference[]; // Chapter-level cross references
+  keyPeople?: PersonBio[]; // Chapter-level notable people
   bookType: BookType;
   generatedAt?: Date;
   generatedBy?: string; // e.g., "Claude 3.5 Sonnet"

@@ -47,6 +47,11 @@
   "bugs": {
     "url": "https://github.com/yourusername/bible-commentary-skill/issues"
   },
+  "workspaces": [
+    "api",
+    "lib",
+    "web"
+  ],
   "devDependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
