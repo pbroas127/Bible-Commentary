@@ -1,6 +1,6 @@
 # Bible Commentary Agent — Quick Start
 
-Choose your pathway: **Claude**, **GitHub Copilot**, or **Azure Foundry**.
+Choose your pathway: **Claude**, **GitHub Copilot**, or **Azure Foundry**
 
 ## ⚡ Three Pathways
 
