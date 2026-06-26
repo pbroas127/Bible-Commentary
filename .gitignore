@@ -1,0 +1,16 @@
+*/node_modules/
+dist/
+api/local.settings.json
+api/dist/
+api/.python_packages/
+api/.funcignore
+web/dist/
+web/node_modules/
+src/web/node_modules/
+node_modules/
+.vscode/
+.env
+.env.*
+*.log
+coverage/
+infra/parameters.bicepparam
