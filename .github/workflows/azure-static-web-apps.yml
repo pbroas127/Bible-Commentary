@@ -32,6 +32,14 @@ jobs:
         working-directory: lib
         run: npx tsc --pretty false
 
+      - name: Install web dependencies
+        working-directory: web
+        run: npm ci --include=dev
+
+      - name: Install api dependencies
+        working-directory: api
+        run: npm ci --include=dev
+
       - name: Deploy to Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -44,8 +52,8 @@ jobs:
           api_location: 'api'
           # Oryx builds inside `app_location` and outputs to this relative path
           output_location: 'dist'
-          # Ensure devDependencies (tsc, vite) are installed before building
-          app_build_command: 'npm ci --include=dev && npm run build'
+          # Run the project's build script (dev deps already installed in earlier steps)
+          app_build_command: 'npm run build'
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
