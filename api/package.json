@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
     "type-check": "tsc --noEmit",
     "dev": "func start",
     "test": "vitest",
