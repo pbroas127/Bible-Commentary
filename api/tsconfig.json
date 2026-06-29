@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "lib": ["ES2020"],
     "outDir": "./dist",
-    "rootDir": "../src",
+    "rootDir": "..",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -27,10 +27,10 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "index.ts",
-    "functions/**/*.ts",
-    "services/**/*.ts",
-    "../src/lib/**/*.ts"
+    "api/index.ts",
+    "api/functions/**/*.ts",
+    "api/services/**/*.ts",
+    "lib/**/*.ts"
   ],
   "exclude": [
     "node_modules",
