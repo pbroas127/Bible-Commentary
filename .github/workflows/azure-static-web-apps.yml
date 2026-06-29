@@ -58,8 +58,9 @@ jobs:
           # Let the action build the app and the API so functions are packaged correctly
           app_location: 'web'
           api_location: 'api'
-          # The action will produce the built web assets under web/dist
-          output_location: 'web/dist'
+          # Oryx builds inside `app_location` and outputs to this relative path
+          output_location: 'dist'
+          app_build_command: 'npm run build'
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
