@@ -1,0 +1,174 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 83967926117,
+      "run_id": 28345509044,
+      "workflow_name": "Deploy to Azure Static Web Apps",
+      "head_branch": "feature/web-app-redesign",
+      "run_url": "https://api.github.com/repos/pbroas127/Bible-Commentary/actions/runs/28345509044",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOS_4w2c8AAAATjODfZQ",
+      "head_sha": "55e8ef019153d774b36f7cbfbd93465d08fd9833",
+      "url": "https://api.github.com/repos/pbroas127/Bible-Commentary/actions/jobs/83967926117",
+      "html_url": "https://github.com/pbroas127/Bible-Commentary/actions/runs/28345509044/job/83967926117",
+      "status": "completed",
+      "conclusion": "failure",
+      "created_at": "2026-06-29T02:50:34Z",
+      "started_at": "2026-06-29T02:50:36Z",
+      "completed_at": "2026-06-29T02:51:32Z",
+      "name": "Build and Deploy Job",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-06-29T02:50:37Z",
+          "completed_at": "2026-06-29T02:50:38Z"
+        },
+        {
+          "name": "Build Azure/static-web-apps-deploy@v1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-06-29T02:50:38Z",
+          "completed_at": "2026-06-29T02:50:56Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-06-29T02:50:56Z",
+          "completed_at": "2026-06-29T02:50:57Z"
+        },
+        {
+          "name": "Setup Node.js",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-06-29T02:50:57Z",
+          "completed_at": "2026-06-29T02:51:03Z"
+        },
+        {
+          "name": "Install root dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-06-29T02:51:03Z",
+          "completed_at": "2026-06-29T02:51:06Z"
+        },
+        {
+          "name": "Install web dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-06-29T02:51:06Z",
+          "completed_at": "2026-06-29T02:51:07Z"
+        },
+        {
+          "name": "Install api dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-06-29T02:51:07Z",
+          "completed_at": "2026-06-29T02:51:08Z"
+        },
+        {
+          "name": "Build shared library",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-06-29T02:51:08Z",
+          "completed_at": "2026-06-29T02:51:09Z"
+        },
+        {
+          "name": "Build web app",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-06-29T02:51:09Z",
+          "completed_at": "2026-06-29T02:51:11Z"
+        },
+        {
+          "name": "Build api",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-06-29T02:51:11Z",
+          "completed_at": "2026-06-29T02:51:14Z"
+        },
+        {
+          "name": "Deploy to Azure Static Web Apps",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 11,
+          "started_at": "2026-06-29T02:51:14Z",
+          "completed_at": "2026-06-29T02:51:29Z"
+        },
+        {
+          "name": "Post Setup Node.js",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 21,
+          "started_at": "2026-06-29T02:51:29Z",
+          "completed_at": "2026-06-29T02:51:29Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-06-29T02:51:29Z",
+          "completed_at": "2026-06-29T02:51:30Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-06-29T02:51:30Z",
+          "completed_at": "2026-06-29T02:51:30Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/pbroas127/Bible-Commentary/check-runs/83967926117",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000000040,
+      "runner_name": "GitHub Actions 1000000040",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 83967926443,
+      "run_id": 28345509044,
+      "workflow_name": "Deploy to Azure Static Web Apps",
+      "head_branch": "feature/web-app-redesign",
+      "run_url": "https://api.github.com/repos/pbroas127/Bible-Commentary/actions/runs/28345509044",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOS_4w2c8AAAATjODgqw",
+      "head_sha": "55e8ef019153d774b36f7cbfbd93465d08fd9833",
+      "url": "https://api.github.com/repos/pbroas127/Bible-Commentary/actions/jobs/83967926443",
+      "html_url": "https://github.com/pbroas127/Bible-Commentary/actions/runs/28345509044/job/83967926443",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-06-29T02:50:35Z",
+      "started_at": "2026-06-29T02:50:35Z",
+      "completed_at": "2026-06-29T02:50:34Z",
+      "name": "Close Pull Request Job",
+      "steps": [
+
+      ],
+      "check_run_url": "https://api.github.com/repos/pbroas127/Bible-Commentary/check-runs/83967926443",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": null,
+      "runner_name": null,
+      "runner_group_id": null,
+      "runner_group_name": null
+    }
+  ]
+}

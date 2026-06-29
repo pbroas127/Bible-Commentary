@@ -1,0 +1,540 @@
+﻿2026-06-29T22:44:58.9243345Z Current runner version: '2.335.1'
+2026-06-29T22:44:58.9269774Z ##[group]Runner Image Provisioner
+2026-06-29T22:44:58.9270666Z Hosted Compute Agent
+2026-06-29T22:44:58.9271425Z Version: 20260611.554
+2026-06-29T22:44:58.9272108Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+2026-06-29T22:44:58.9272922Z Build Date: 2026-06-11T21:40:46Z
+2026-06-29T22:44:58.9273792Z Worker ID: {c92d2bac-15e6-4557-ae52-2aacb7bfae77}
+2026-06-29T22:44:58.9274587Z Azure Region: eastus
+2026-06-29T22:44:58.9275677Z ##[endgroup]
+2026-06-29T22:44:58.9277268Z ##[group]Operating System
+2026-06-29T22:44:58.9278125Z Ubuntu
+2026-06-29T22:44:58.9278740Z 24.04.4
+2026-06-29T22:44:58.9279666Z LTS
+2026-06-29T22:44:58.9280331Z ##[endgroup]
+2026-06-29T22:44:58.9280949Z ##[group]Runner Image
+2026-06-29T22:44:58.9282517Z Image: ubuntu-24.04
+2026-06-29T22:44:58.9283146Z Version: 20260622.220.1
+2026-06-29T22:44:58.9284502Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260622.220/images/ubuntu/Ubuntu2404-Readme.md
+2026-06-29T22:44:58.9286332Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260622.220
+2026-06-29T22:44:58.9287446Z ##[endgroup]
+2026-06-29T22:44:58.9288732Z ##[group]GITHUB_TOKEN Permissions
+2026-06-29T22:44:58.9290989Z Contents: read
+2026-06-29T22:44:58.9291661Z Metadata: read
+2026-06-29T22:44:58.9292418Z Packages: read
+2026-06-29T22:44:58.9293047Z ##[endgroup]
+2026-06-29T22:44:58.9295668Z Secret source: Actions
+2026-06-29T22:44:58.9296862Z Prepare workflow directory
+2026-06-29T22:44:58.9634601Z Prepare all required actions
+2026-06-29T22:44:58.9674302Z Getting action download info
+2026-06-29T22:44:59.1607718Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-29T22:44:59.2414223Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-06-29T22:44:59.3632170Z Download action repository 'Azure/static-web-apps-deploy@v1' (SHA:1a947af9992250f3bc2e68ad0754c0b0c11566c9)
+2026-06-29T22:44:59.5564299Z Complete job name: Build and Deploy Job
+2026-06-29T22:44:59.6054038Z ##[group]Build container for action use: '/home/runner/work/_actions/Azure/static-web-apps-deploy/v1/Dockerfile'.
+2026-06-29T22:44:59.6337061Z ##[command]/usr/bin/docker build -t 784959:fbd267be46c14407a0a7e9074e8a654a -f "/home/runner/work/_actions/Azure/static-web-apps-deploy/v1/Dockerfile" "/home/runner/work/_actions/Azure/static-web-apps-deploy/v1"
+2026-06-29T22:45:02.7084003Z #0 building with "default" instance using docker driver
+2026-06-29T22:45:02.7085660Z 
+2026-06-29T22:45:02.7086299Z #1 [internal] load build definition from Dockerfile
+2026-06-29T22:45:02.7087760Z #1 transferring dockerfile: 160B 0.0s done
+2026-06-29T22:45:02.7089010Z #1 DONE 0.1s
+2026-06-29T22:45:02.7089547Z 
+2026-06-29T22:45:02.7090487Z #2 [internal] load metadata for mcr.microsoft.com/appsvc/staticappsclient:stable
+2026-06-29T22:45:02.7832114Z #2 DONE 0.2s
+2026-06-29T22:45:02.9296350Z 
+2026-06-29T22:45:02.9298907Z #3 [internal] load .dockerignore
+2026-06-29T22:45:02.9301449Z #3 transferring context: 2B done
+2026-06-29T22:45:02.9302275Z #3 DONE 0.0s
+2026-06-29T22:45:02.9302689Z 
+2026-06-29T22:45:02.9304175Z #4 [internal] load build context
+2026-06-29T22:45:02.9307289Z #4 transferring context: 107B done
+2026-06-29T22:45:02.9309960Z #4 DONE 0.0s
+2026-06-29T22:45:02.9312093Z 
+2026-06-29T22:45:02.9315135Z #5 [1/2] FROM mcr.microsoft.com/appsvc/staticappsclient:stable@sha256:8ed8ea489d04d0636b5c47fbaa44f005975ab0d1f03eddc28014cdf7a061f7f4
+2026-06-29T22:45:02.9318476Z #5 resolve mcr.microsoft.com/appsvc/staticappsclient:stable@sha256:8ed8ea489d04d0636b5c47fbaa44f005975ab0d1f03eddc28014cdf7a061f7f4 done
+2026-06-29T22:45:02.9321027Z #5 sha256:9a57ac12a02944f33f4613c51086e29027d2a9fe416981d3254c55b723712a5c 4.19MB / 60.95MB 0.1s
+2026-06-29T22:45:02.9323744Z #5 sha256:40dc2f594569ada869542e14b3d9b19af523e5a664b2099fa5deee0fac6bf3ab 7.34MB / 62.25MB 0.1s
+2026-06-29T22:45:02.9330103Z #5 sha256:8ed8ea489d04d0636b5c47fbaa44f005975ab0d1f03eddc28014cdf7a061f7f4 2.88kB / 2.88kB done
+2026-06-29T22:45:02.9339880Z #5 sha256:2dadab5848b144c9b973125a744d7db13f89b1ae3e08bc06af4115e3ebb6885b 14.85kB / 14.85kB done
+2026-06-29T22:45:02.9343685Z #5 sha256:673965f86294fda2f405de92b30753f90cbd1097f62d6ace60fd5bc27f7dff2a 15.73MB / 16.97MB 0.1s
+2026-06-29T22:45:03.1301891Z #5 sha256:9a57ac12a02944f33f4613c51086e29027d2a9fe416981d3254c55b723712a5c 54.53MB / 60.95MB 0.3s
+2026-06-29T22:45:03.1304567Z #5 sha256:40dc2f594569ada869542e14b3d9b19af523e5a664b2099fa5deee0fac6bf3ab 53.48MB / 62.25MB 0.3s
+2026-06-29T22:45:03.1307354Z #5 sha256:673965f86294fda2f405de92b30753f90cbd1097f62d6ace60fd5bc27f7dff2a 16.97MB / 16.97MB 0.1s done
+2026-06-29T22:45:03.1309853Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 39.85MB / 221.00MB 0.3s
+2026-06-29T22:45:03.3299759Z #5 sha256:9a57ac12a02944f33f4613c51086e29027d2a9fe416981d3254c55b723712a5c 60.95MB / 60.95MB 0.4s done
+2026-06-29T22:45:03.3301394Z #5 sha256:40dc2f594569ada869542e14b3d9b19af523e5a664b2099fa5deee0fac6bf3ab 62.25MB / 62.25MB 0.4s done
+2026-06-29T22:45:03.3302938Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 98.57MB / 221.00MB 0.5s
+2026-06-29T22:45:03.3304131Z #5 extracting sha256:9a57ac12a02944f33f4613c51086e29027d2a9fe416981d3254c55b723712a5c
+2026-06-29T22:45:03.3305173Z #5 sha256:2151d16d7dcca2946d0178aa0cd40138de91ad550daa6c0ce23cc8680cef44dc 1.83MB / 1.83MB 0.4s done
+2026-06-29T22:45:03.3306212Z #5 sha256:89732bc7504122601f40269fc9ddfb70982e633ea9caf641ae45736f2846b004 39B / 39B 0.4s done
+2026-06-29T22:45:03.3307367Z #5 sha256:3b17442d31d185afee5af808ff7f34be99df67a06c11ef3819e3612d90105eba 24.12MB / 36.64MB 0.5s
+2026-06-29T22:45:03.3314061Z #5 sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 13.63MB / 79.23MB 0.5s
+2026-06-29T22:45:03.4758624Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 125.83MB / 221.00MB 0.6s
+2026-06-29T22:45:03.4760856Z #5 sha256:3b17442d31d185afee5af808ff7f34be99df67a06c11ef3819e3612d90105eba 36.64MB / 36.64MB 0.6s done
+2026-06-29T22:45:03.4764395Z #5 sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 36.70MB / 79.23MB 0.6s
+2026-06-29T22:45:03.4767274Z #5 sha256:b63b9d8b66b5ff5212c0d72d09c4d3feadccf1db4ef01d419da27de677a7e768 0B / 1.31MB 0.6s
+2026-06-29T22:45:03.4768955Z #5 sha256:3175e53e95b1cb83067cc50762c4ffd867c26a65786c1c543a424020be5e04fa 123.28kB / 123.28kB 0.6s done
+2026-06-29T22:45:03.5819107Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 155.19MB / 221.00MB 0.7s
+2026-06-29T22:45:03.5820448Z #5 sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 60.82MB / 79.23MB 0.7s
+2026-06-29T22:45:03.5822070Z #5 sha256:b63b9d8b66b5ff5212c0d72d09c4d3feadccf1db4ef01d419da27de677a7e768 1.31MB / 1.31MB 0.6s done
+2026-06-29T22:45:03.5823343Z #5 sha256:28fac68ae10cfabc2b6e0950099b1f82f89d163713e7add747a7881f65df2107 733.27kB / 733.27kB 0.7s done
+2026-06-29T22:45:03.5826529Z #5 sha256:54839ea777508dd630548e945f939d611fc491006c088552eb814f5245274d23 2.10MB / 40.28MB 0.7s
+2026-06-29T22:45:03.6852915Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 187.70MB / 221.00MB 0.8s
+2026-06-29T22:45:03.6854646Z #5 sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 79.23MB / 79.23MB 0.8s
+2026-06-29T22:45:03.6856345Z #5 sha256:54839ea777508dd630548e945f939d611fc491006c088552eb814f5245274d23 25.17MB / 40.28MB 0.8s
+2026-06-29T22:45:03.7880558Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 210.76MB / 221.00MB 0.9s
+2026-06-29T22:45:03.7883211Z #5 sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 79.23MB / 79.23MB 0.8s done
+2026-06-29T22:45:03.7884599Z #5 sha256:54839ea777508dd630548e945f939d611fc491006c088552eb814f5245274d23 40.28MB / 40.28MB 0.9s done
+2026-06-29T22:45:03.7886100Z #5 sha256:093d222846cbb3af8c495e5edc11036cc3764df86b2ea13eba45d8d633027fb8 176B / 176B 0.8s done
+2026-06-29T22:45:03.7887414Z #5 sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 7.34MB / 71.24MB 0.9s
+2026-06-29T22:45:03.7891528Z #5 sha256:e5b98d580c88cbc9c3209953cda9374569e5eb75690b57485ec7b2265f5c9604 176B / 176B 0.8s done
+2026-06-29T22:45:03.8885345Z #5 sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 33.55MB / 71.24MB 1.0s
+2026-06-29T22:45:03.9891163Z #5 sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 58.72MB / 71.24MB 1.1s
+2026-06-29T22:45:04.1191287Z #5 sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 71.24MB / 71.24MB 1.2s
+2026-06-29T22:45:04.4170290Z #5 sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 221.00MB / 221.00MB 1.5s done
+2026-06-29T22:45:04.4171427Z #5 sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 71.24MB / 71.24MB 1.5s done
+2026-06-29T22:45:05.5697628Z #5 extracting sha256:9a57ac12a02944f33f4613c51086e29027d2a9fe416981d3254c55b723712a5c 2.4s done
+2026-06-29T22:45:05.7026537Z #5 extracting sha256:673965f86294fda2f405de92b30753f90cbd1097f62d6ace60fd5bc27f7dff2a 0.1s
+2026-06-29T22:45:06.1380564Z #5 extracting sha256:673965f86294fda2f405de92b30753f90cbd1097f62d6ace60fd5bc27f7dff2a 0.4s done
+2026-06-29T22:45:07.2211713Z #5 extracting sha256:40dc2f594569ada869542e14b3d9b19af523e5a664b2099fa5deee0fac6bf3ab
+2026-06-29T22:45:09.3595651Z #5 extracting sha256:40dc2f594569ada869542e14b3d9b19af523e5a664b2099fa5deee0fac6bf3ab 2.0s done
+2026-06-29T22:45:09.4522539Z #5 extracting sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d
+2026-06-29T22:45:14.5009770Z #5 extracting sha256:c7cdd48d6d211d1aca6edf8ae5ac69979ee52d0efbe788ad4073f5bda7763d5d 5.0s done
+2026-06-29T22:45:15.6351351Z #5 extracting sha256:89732bc7504122601f40269fc9ddfb70982e633ea9caf641ae45736f2846b004
+2026-06-29T22:45:15.8169749Z #5 extracting sha256:89732bc7504122601f40269fc9ddfb70982e633ea9caf641ae45736f2846b004 done
+2026-06-29T22:45:15.8170858Z #5 extracting sha256:3b17442d31d185afee5af808ff7f34be99df67a06c11ef3819e3612d90105eba
+2026-06-29T22:45:16.7636003Z #5 extracting sha256:3b17442d31d185afee5af808ff7f34be99df67a06c11ef3819e3612d90105eba 1.0s done
+2026-06-29T22:45:16.7637421Z #5 extracting sha256:2151d16d7dcca2946d0178aa0cd40138de91ad550daa6c0ce23cc8680cef44dc
+2026-06-29T22:45:17.0087013Z #5 extracting sha256:2151d16d7dcca2946d0178aa0cd40138de91ad550daa6c0ce23cc8680cef44dc 0.1s done
+2026-06-29T22:45:17.0088490Z #5 extracting sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 0.1s
+2026-06-29T22:45:17.9701653Z #5 extracting sha256:5580a4bf363d0ef29fbd6a90ba5891fac7d0a8cddd81435531b222462b9446cf 0.9s done
+2026-06-29T22:45:17.9884115Z #5 extracting sha256:3175e53e95b1cb83067cc50762c4ffd867c26a65786c1c543a424020be5e04fa
+2026-06-29T22:45:18.1050258Z #5 extracting sha256:3175e53e95b1cb83067cc50762c4ffd867c26a65786c1c543a424020be5e04fa done
+2026-06-29T22:45:18.1051737Z #5 extracting sha256:b63b9d8b66b5ff5212c0d72d09c4d3feadccf1db4ef01d419da27de677a7e768 0.1s done
+2026-06-29T22:45:18.1053313Z #5 extracting sha256:28fac68ae10cfabc2b6e0950099b1f82f89d163713e7add747a7881f65df2107 0.0s done
+2026-06-29T22:45:18.2233581Z #5 extracting sha256:54839ea777508dd630548e945f939d611fc491006c088552eb814f5245274d23 0.1s
+2026-06-29T22:45:18.7312356Z #5 extracting sha256:54839ea777508dd630548e945f939d611fc491006c088552eb814f5245274d23 0.4s done
+2026-06-29T22:45:18.7314252Z #5 extracting sha256:093d222846cbb3af8c495e5edc11036cc3764df86b2ea13eba45d8d633027fb8 done
+2026-06-29T22:45:18.7315663Z #5 extracting sha256:e5b98d580c88cbc9c3209953cda9374569e5eb75690b57485ec7b2265f5c9604 done
+2026-06-29T22:45:18.7316428Z #5 extracting sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 0.1s
+2026-06-29T22:45:21.2877727Z #5 extracting sha256:7364f3ef58a1fcc634a004f1a3f535e1da1400f1ffd64ac989c3d51117422f5e 2.7s done
+2026-06-29T22:45:21.5690471Z #5 DONE 18.7s
+2026-06-29T22:45:21.7421433Z 
+2026-06-29T22:45:21.7421947Z #6 [2/2] COPY entrypoint.sh /entrypoint.sh
+2026-06-29T22:45:21.7422368Z #6 DONE 0.0s
+2026-06-29T22:45:21.7422496Z 
+2026-06-29T22:45:21.7422587Z #7 exporting to image
+2026-06-29T22:45:21.7423221Z #7 exporting layers
+2026-06-29T22:45:22.7927156Z #7 exporting layers 1.2s done
+2026-06-29T22:45:22.8135551Z #7 writing image sha256:19e59f460c728016304881822e520ef868fbbb3c1fba8dc2ae5a6f5d29dc31ec done
+2026-06-29T22:45:22.8141030Z #7 naming to docker.io/library/784959:fbd267be46c14407a0a7e9074e8a654a done
+2026-06-29T22:45:22.8141777Z #7 DONE 1.2s
+2026-06-29T22:45:22.8183684Z ##[endgroup]
+2026-06-29T22:45:22.8491631Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-29T22:45:22.8499327Z ##[group]Run actions/checkout@v4
+2026-06-29T22:45:22.8499779Z with:
+2026-06-29T22:45:22.8499984Z   submodules: true
+2026-06-29T22:45:22.8500221Z   repository: pbroas127/Bible-Commentary
+2026-06-29T22:45:22.8502944Z   token: ***
+2026-06-29T22:45:22.8503163Z   ssh-strict: true
+2026-06-29T22:45:22.8503364Z   ssh-user: git
+2026-06-29T22:45:22.8503568Z   persist-credentials: true
+2026-06-29T22:45:22.8503812Z   clean: true
+2026-06-29T22:45:22.8504018Z   sparse-checkout-cone-mode: true
+2026-06-29T22:45:22.8504273Z   fetch-depth: 1
+2026-06-29T22:45:22.8504469Z   fetch-tags: false
+2026-06-29T22:45:22.8504672Z   show-progress: true
+2026-06-29T22:45:22.8505178Z   lfs: false
+2026-06-29T22:45:22.8505373Z   set-safe-directory: true
+2026-06-29T22:45:22.8505872Z ##[endgroup]
+2026-06-29T22:45:22.9501146Z Syncing repository: pbroas127/Bible-Commentary
+2026-06-29T22:45:22.9502530Z ##[group]Getting Git version info
+2026-06-29T22:45:22.9502991Z Working directory is '/home/runner/work/Bible-Commentary/Bible-Commentary'
+2026-06-29T22:45:22.9503813Z [command]/usr/bin/git version
+2026-06-29T22:45:22.9505073Z git version 2.54.0
+2026-06-29T22:45:22.9526714Z ##[endgroup]
+2026-06-29T22:45:22.9540986Z Temporarily overriding HOME='/home/runner/work/_temp/a2520579-3e88-483d-875a-8aefcae1cf7b' before making global git config changes
+2026-06-29T22:45:22.9542342Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-29T22:45:22.9546643Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bible-Commentary/Bible-Commentary
+2026-06-29T22:45:22.9596550Z Deleting the contents of '/home/runner/work/Bible-Commentary/Bible-Commentary'
+2026-06-29T22:45:22.9600352Z ##[group]Initializing the repository
+2026-06-29T22:45:22.9605034Z [command]/usr/bin/git init /home/runner/work/Bible-Commentary/Bible-Commentary
+2026-06-29T22:45:22.9729286Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-29T22:45:22.9730320Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-29T22:45:22.9731167Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-29T22:45:22.9731832Z hint: call:
+2026-06-29T22:45:22.9732144Z hint:
+2026-06-29T22:45:22.9732629Z hint: 	git config --global init.defaultBranch <name>
+2026-06-29T22:45:22.9733004Z hint:
+2026-06-29T22:45:22.9733339Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-29T22:45:22.9733912Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-29T22:45:22.9734342Z hint:
+2026-06-29T22:45:22.9734557Z hint: 	git branch -m <name>
+2026-06-29T22:45:22.9735194Z hint:
+2026-06-29T22:45:22.9735758Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-29T22:45:22.9736858Z Initialized empty Git repository in /home/runner/work/Bible-Commentary/Bible-Commentary/.git/
+2026-06-29T22:45:22.9748050Z [command]/usr/bin/git remote add origin https://github.com/pbroas127/Bible-Commentary
+2026-06-29T22:45:22.9794303Z ##[endgroup]
+2026-06-29T22:45:22.9795258Z ##[group]Disabling automatic garbage collection
+2026-06-29T22:45:22.9798882Z [command]/usr/bin/git config --local gc.auto 0
+2026-06-29T22:45:22.9828510Z ##[endgroup]
+2026-06-29T22:45:22.9829236Z ##[group]Setting up auth
+2026-06-29T22:45:22.9836170Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-29T22:45:22.9870057Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-29T22:45:23.0304082Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-29T22:45:23.0308282Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-29T22:45:23.0501749Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-29T22:45:23.0536063Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-29T22:45:23.0763776Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-29T22:45:23.0799528Z ##[endgroup]
+2026-06-29T22:45:23.0800053Z ##[group]Fetching the repository
+2026-06-29T22:45:23.0808937Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7ee4d279f3450dcbb054be5030afad4fcdb3d293:refs/remotes/origin/feature/web-app-redesign
+2026-06-29T22:45:23.2820510Z From https://github.com/pbroas127/Bible-Commentary
+2026-06-29T22:45:23.2821983Z  * [new ref]         7ee4d279f3450dcbb054be5030afad4fcdb3d293 -> origin/feature/web-app-redesign
+2026-06-29T22:45:23.2859046Z ##[endgroup]
+2026-06-29T22:45:23.2859724Z ##[group]Determining the checkout info
+2026-06-29T22:45:23.2862201Z ##[endgroup]
+2026-06-29T22:45:23.2869667Z [command]/usr/bin/git sparse-checkout disable
+2026-06-29T22:45:23.2915443Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-29T22:45:23.2945767Z ##[group]Checking out the ref
+2026-06-29T22:45:23.2953057Z [command]/usr/bin/git checkout --progress --force -B feature/web-app-redesign refs/remotes/origin/feature/web-app-redesign
+2026-06-29T22:45:23.3062126Z Switched to a new branch 'feature/web-app-redesign'
+2026-06-29T22:45:23.3064990Z branch 'feature/web-app-redesign' set up to track 'origin/feature/web-app-redesign'.
+2026-06-29T22:45:23.3071935Z ##[endgroup]
+2026-06-29T22:45:23.3072839Z ##[group]Setting up auth for fetching submodules
+2026-06-29T22:45:23.3077803Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-29T22:45:23.3123338Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2026-06-29T22:45:23.3158071Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2026-06-29T22:45:23.3192882Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-126809284@github.com:
+2026-06-29T22:45:23.3223274Z ##[endgroup]
+2026-06-29T22:45:23.3223949Z ##[group]Fetching submodules
+2026-06-29T22:45:23.3228994Z [command]/usr/bin/git submodule sync
+2026-06-29T22:45:23.3473807Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1
+2026-06-29T22:45:23.3727634Z [command]/usr/bin/git submodule foreach git config --local gc.auto 0
+2026-06-29T22:45:23.3970696Z ##[endgroup]
+2026-06-29T22:45:23.3971424Z ##[group]Persisting credentials for submodules
+2026-06-29T22:45:23.3978405Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2026-06-29T22:45:23.4230096Z [command]/usr/bin/git submodule foreach sh -c "git config --local 'http.https://github.com/.extraheader' 'AUTHORIZATION: basic ***' && git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-06-29T22:45:23.4484986Z [command]/usr/bin/git submodule foreach git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2026-06-29T22:45:23.4735733Z [command]/usr/bin/git submodule foreach git config --local --add 'url.https://github.com/.insteadOf' 'org-126809284@github.com:'
+2026-06-29T22:45:23.4962231Z ##[endgroup]
+2026-06-29T22:45:23.5003901Z [command]/usr/bin/git log -1 --format=%H
+2026-06-29T22:45:23.5028394Z 7ee4d279f3450dcbb054be5030afad4fcdb3d293
+2026-06-29T22:45:23.5268175Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-29T22:45:23.5270148Z ##[group]Run actions/setup-node@v4
+2026-06-29T22:45:23.5270429Z with:
+2026-06-29T22:45:23.5270627Z   node-version: 20
+2026-06-29T22:45:23.5270839Z   cache: npm
+2026-06-29T22:45:23.5271231Z   cache-dependency-path: package-lock.json
+web/package-lock.json
+api/package-lock.json
+
+2026-06-29T22:45:23.5271703Z   always-auth: false
+2026-06-29T22:45:23.5271922Z   check-latest: false
+2026-06-29T22:45:23.5274559Z   token: ***
+2026-06-29T22:45:23.5274931Z ##[endgroup]
+2026-06-29T22:45:23.6700175Z Attempting to download 20...
+2026-06-29T22:45:23.6823000Z (node:2570) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-29T22:45:23.6824329Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-29T22:45:24.0518620Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-linux-x64.tar.gz
+2026-06-29T22:45:24.3555896Z Extracting ...
+2026-06-29T22:45:24.3684418Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/25c6a771-2902-48f3-9823-4e771ae20541 -f /home/runner/work/_temp/0dfb3422-2200-405c-9dd3-8ebcc545c3bb
+2026-06-29T22:45:25.3859105Z Adding to the cache ...
+2026-06-29T22:45:27.2055244Z ##[group]Environment details
+2026-06-29T22:45:27.5608983Z node: v20.20.2
+2026-06-29T22:45:27.5609399Z npm: 10.8.2
+2026-06-29T22:45:27.5609599Z yarn: 1.22.22
+2026-06-29T22:45:27.5610072Z ##[endgroup]
+2026-06-29T22:45:27.5632477Z [command]/opt/hostedtoolcache/node/20.20.2/x64/bin/npm config get cache
+2026-06-29T22:45:27.6688875Z /home/runner/.npm
+2026-06-29T22:45:27.7336185Z Cache hit for: node-cache-Linux-x64-npm-7978916287f6d250a686aa8c99e4ec38d4e7b2cdb992e880b155242a22f5801d
+2026-06-29T22:45:27.7443647Z (node:2570) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-06-29T22:45:27.9665495Z Received 28667598 of 28667598 (100.0%), 140.2 MBs/sec
+2026-06-29T22:45:27.9666178Z Cache Size: ~27 MB (28667598 B)
+2026-06-29T22:45:27.9694159Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3946e303-49f2-4152-892f-fee013fb799a/cache.tzst -P -C /home/runner/work/Bible-Commentary/Bible-Commentary --use-compress-program unzstd
+2026-06-29T22:45:28.0842417Z Cache restored successfully
+2026-06-29T22:45:28.0860348Z Cache restored from key: node-cache-Linux-x64-npm-7978916287f6d250a686aa8c99e4ec38d4e7b2cdb992e880b155242a22f5801d
+2026-06-29T22:45:28.1055338Z ##[group]Run npm ci
+2026-06-29T22:45:28.1055649Z [36;1mnpm ci[0m
+2026-06-29T22:45:28.1093374Z shell: /usr/bin/bash -e {0}
+2026-06-29T22:45:28.1093652Z ##[endgroup]
+2026-06-29T22:45:31.6157558Z 
+2026-06-29T22:45:31.6165940Z added 304 packages, and audited 308 packages in 3s
+2026-06-29T22:45:31.6166289Z 
+2026-06-29T22:45:31.6166519Z 76 packages are looking for funding
+2026-06-29T22:45:31.6166834Z   run `npm fund` for details
+2026-06-29T22:45:31.6337214Z 
+2026-06-29T22:45:31.6338004Z 4 vulnerabilities (2 moderate, 1 high, 1 critical)
+2026-06-29T22:45:31.6338391Z 
+2026-06-29T22:45:31.6339021Z To address all issues (including breaking changes), run:
+2026-06-29T22:45:31.6339805Z   npm audit fix --force
+2026-06-29T22:45:31.6340609Z 
+2026-06-29T22:45:31.6340927Z Run `npm audit` for details.
+2026-06-29T22:45:31.6641201Z ##[group]Run npx tsc --pretty false
+2026-06-29T22:45:31.6641565Z [36;1mnpx tsc --pretty false[0m
+2026-06-29T22:45:31.6674489Z shell: /usr/bin/bash -e {0}
+2026-06-29T22:45:31.6675012Z ##[endgroup]
+2026-06-29T22:45:33.1805484Z ##[group]Run npm ci --include=dev
+2026-06-29T22:45:33.1805848Z [36;1mnpm ci --include=dev[0m
+2026-06-29T22:45:33.1838168Z shell: /usr/bin/bash -e {0}
+2026-06-29T22:45:33.1838436Z ##[endgroup]
+2026-06-29T22:45:34.0424380Z 
+2026-06-29T22:45:34.0425653Z up to date, audited 308 packages in 796ms
+2026-06-29T22:45:34.0426285Z 
+2026-06-29T22:45:34.0426706Z 76 packages are looking for funding
+2026-06-29T22:45:34.0427460Z   run `npm fund` for details
+2026-06-29T22:45:34.0555924Z 
+2026-06-29T22:45:34.0566468Z 2 vulnerabilities (1 moderate, 1 high)
+2026-06-29T22:45:34.0566974Z 
+2026-06-29T22:45:34.0567985Z To address all issues (including breaking changes), run:
+2026-06-29T22:45:34.0568787Z   npm audit fix --force
+2026-06-29T22:45:34.0569149Z 
+2026-06-29T22:45:34.0569493Z Run `npm audit` for details.
+2026-06-29T22:45:34.0707708Z ##[group]Run npm ci --include=dev
+2026-06-29T22:45:34.0708329Z [36;1mnpm ci --include=dev[0m
+2026-06-29T22:45:34.0756376Z shell: /usr/bin/bash -e {0}
+2026-06-29T22:45:34.0756830Z ##[endgroup]
+2026-06-29T22:45:35.1567893Z 
+2026-06-29T22:45:35.1568640Z up to date, audited 308 packages in 1s
+2026-06-29T22:45:35.1569132Z 
+2026-06-29T22:45:35.1574163Z 76 packages are looking for funding
+2026-06-29T22:45:35.1574951Z   run `npm fund` for details
+2026-06-29T22:45:35.1827383Z 
+2026-06-29T22:45:35.1828037Z 4 vulnerabilities (2 moderate, 1 high, 1 critical)
+2026-06-29T22:45:35.1828330Z 
+2026-06-29T22:45:35.1828875Z To address all issues (including breaking changes), run:
+2026-06-29T22:45:35.1829444Z   npm audit fix --force
+2026-06-29T22:45:35.1829672Z 
+2026-06-29T22:45:35.1829923Z Run `npm audit` for details.
+2026-06-29T22:45:35.2023252Z ##[group]Run Azure/static-web-apps-deploy@v1
+2026-06-29T22:45:35.2023618Z with:
+2026-06-29T22:45:35.2024373Z   azure_static_web_apps_api_token: ***
+2026-06-29T22:45:35.2030599Z   repo_token: ***
+2026-06-29T22:45:35.2031015Z   action: upload
+2026-06-29T22:45:35.2031366Z   app_location: web
+2026-06-29T22:45:35.2031737Z   api_location: api
+2026-06-29T22:45:35.2032115Z   output_location: dist
+2026-06-29T22:45:35.2032535Z   app_build_command: npm run build
+2026-06-29T22:45:35.2033001Z ##[endgroup]
+2026-06-29T22:45:35.2153396Z ##[command]/usr/bin/docker run --name fbd267be46c14407a0a7e9074e8a654a_43fcab --label 784959 --workdir /github/workspace --rm -e "INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN" -e "INPUT_REPO_TOKEN" -e "INPUT_ACTION" -e "INPUT_APP_LOCATION" -e "INPUT_API_LOCATION" -e "INPUT_OUTPUT_LOCATION" -e "INPUT_APP_BUILD_COMMAND" -e "INPUT_API_BUILD_COMMAND" -e "INPUT_APP_ARTIFACT_LOCATION" -e "INPUT_ROUTES_LOCATION" -e "INPUT_SKIP_APP_BUILD" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/Bible-Commentary/Bible-Commentary":"/github/workspace" 784959:fbd267be46c14407a0a7e9074e8a654a
+2026-06-29T22:45:37.5272973Z DeploymentId: 56bdc770-8208-4d4f-a466-ff421377f36f
+2026-06-29T22:45:37.5273559Z 
+2026-06-29T22:45:37.6426799Z [37mTry to validate location at: '/github/workspace/web'.[0m
+2026-06-29T22:45:37.6434677Z [37mApp Directory Location: 'web' was found.[0m
+2026-06-29T22:45:37.6436485Z [37mTry to validate location at: '/github/workspace/swa-db-connections'.[0m
+2026-06-29T22:45:37.6438056Z [37mLooking for event info[0m
+2026-06-29T22:45:38.8298606Z [37mStarting to build app with Oryx[0m
+2026-06-29T22:45:38.8308690Z [33mAzure Static Web Apps utilizes Oryx to build both static applications and Azure Functions. You can find more details on Oryx here: https://github.com/microsoft/Oryx[0m
+2026-06-29T22:45:38.8310740Z [33mOryx will build app with the following custom override command: npm run build[0m
+2026-06-29T22:45:38.8311737Z [37m---Oryx build logs---[0m
+2026-06-29T22:45:38.8312253Z [37m[0m
+2026-06-29T22:45:38.8312622Z [37m[0m
+2026-06-29T22:45:39.1634690Z [37mOperation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx[0m
+2026-06-29T22:45:39.1636348Z [37mYou can report issues at https://github.com/Microsoft/Oryx/issues[0m
+2026-06-29T22:45:39.1637106Z [37m[0m
+2026-06-29T22:45:39.1638790Z [37mOryx Version: 0.2.20260109.4+7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, Commit: 7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, ReleaseTagName: 20260109.4[0m
+2026-06-29T22:45:39.1640312Z [37m[0m
+2026-06-29T22:45:39.1640937Z [37mBuild Operation ID: 18848abc524570e7[0m
+2026-06-29T22:45:39.1642160Z [37mOS Type           : bullseye[0m
+2026-06-29T22:45:39.1642954Z [37mImage Type        : githubactions[0m
+2026-06-29T22:45:39.1643520Z [37m[0m
+2026-06-29T22:45:39.1768171Z [37mPrimary SDK Storage URL: https://oryx-cdn.microsoft.io[0m
+2026-06-29T22:45:39.1769178Z [37mBackup SDK Storage URL: [0m
+2026-06-29T22:45:39.1769945Z [37mDetecting platforms...[0m
+2026-06-29T22:45:39.7723708Z [37mDetected following platforms:[0m
+2026-06-29T22:45:39.7725057Z [37m  nodejs: 24.13.0[0m
+2026-06-29T22:45:39.7762531Z [37mVersion '24.13.0' of platform 'nodejs' is not installed. Generating script to install it...[0m
+2026-06-29T22:45:39.8130740Z [37mDetected the following frameworks: Typescript,React[0m
+2026-06-29T22:45:39.8974279Z [37m[0m
+2026-06-29T22:45:39.9057230Z [37m[0m
+2026-06-29T22:45:39.9065544Z [37mSource directory     : /github/workspace/web[0m
+2026-06-29T22:45:39.9067548Z [37mDestination directory: /bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/app[0m
+2026-06-29T22:45:39.9068641Z [37m[0m
+2026-06-29T22:45:39.9069207Z [37mInstalling platform...[0m
+2026-06-29T22:45:39.9070036Z [37m[0m
+2026-06-29T22:45:39.9075024Z [37mDownloading and extracting 'nodejs' version '24.13.0' to '/tmp/oryx/platforms/nodejs/24.13.0'...[0m
+2026-06-29T22:45:39.9099990Z [37mDetected image debian flavor: bullseye.[0m
+2026-06-29T22:45:40.1442470Z [37mBinaries download done in 1 sec(s).[0m
+2026-06-29T22:45:40.1443813Z [37mVerifying checksum...[0m
+2026-06-29T22:45:40.1500738Z [37mExtracting contents...[0m
+2026-06-29T22:45:41.4707249Z [37mperforming sha512 checksum for: nodejs...[0m
+2026-06-29T22:45:41.6359889Z [37mChecksum verification done in 0 sec(s).[0m
+2026-06-29T22:45:41.6360855Z [37m[0m
+2026-06-29T22:45:41.6377156Z [37mPlatform installation done in 2 sec(s).[0m
+2026-06-29T22:45:41.6907142Z [37mRunning build script snippets...[0m
+2026-06-29T22:45:41.6908559Z [37mRemoving existing manifest file[0m
+2026-06-29T22:45:41.6949075Z [37mCreating directory for command manifest file if it does not exist[0m
+2026-06-29T22:45:41.6986541Z [37mCreating a manifest file...[0m
+2026-06-29T22:45:41.6988040Z [37mNode Build Command Manifest file created.[0m
+2026-06-29T22:45:41.6988885Z [37m[0m
+2026-06-29T22:45:41.6989733Z [37mUsing Node version:[0m
+2026-06-29T22:45:41.7031205Z [37mv24.13.0[0m
+2026-06-29T22:45:41.7041708Z [37m[0m
+2026-06-29T22:45:41.7042498Z [37mUsing Npm version:[0m
+2026-06-29T22:45:41.8286618Z [37m11.6.2[0m
+2026-06-29T22:45:41.8441248Z [37m[0m
+2026-06-29T22:45:41.8442025Z [37mRunning 'npm install'...[0m
+2026-06-29T22:45:41.8442772Z [37m[0m
+2026-06-29T22:45:43.1343833Z [37m[0m
+2026-06-29T22:45:43.1355538Z [37mup to date, audited 308 packages in 1s[0m
+2026-06-29T22:45:43.1356378Z [37m[0m
+2026-06-29T22:45:43.1356964Z [37m76 packages are looking for funding[0m
+2026-06-29T22:45:43.1357629Z [37m  run `npm fund` for details[0m
+2026-06-29T22:45:43.1419894Z [37m[0m
+2026-06-29T22:45:43.1420494Z [37m2 vulnerabilities (1 moderate, 1 high)[0m
+2026-06-29T22:45:43.1421108Z [37m[0m
+2026-06-29T22:45:43.1421953Z [37mTo address all issues (including breaking changes), run:[0m
+2026-06-29T22:45:43.1422913Z [37m  npm audit fix --force[0m
+2026-06-29T22:45:43.1423468Z [37m[0m
+2026-06-29T22:45:43.1425395Z [37mRun `npm audit` for details.[0m
+2026-06-29T22:45:43.2090587Z [37m[0m
+2026-06-29T22:45:43.3256068Z [37m[0m
+2026-06-29T22:45:43.3257145Z [37m> @bible-commentary/web@1.0.0 build[0m
+2026-06-29T22:45:43.3258040Z [37m> tsc && vite build[0m
+2026-06-29T22:45:43.3258635Z [37m[0m
+2026-06-29T22:45:44.4677679Z [37m[36mvite v5.4.21 [32mbuilding for production...[36m[39m[0m
+2026-06-29T22:45:44.5182948Z [37mtransforming...[0m
+2026-06-29T22:45:45.1393087Z [37m[32m✓[39m 39 modules transformed.[0m
+2026-06-29T22:45:45.2068772Z [37mrendering chunks...[0m
+2026-06-29T22:45:45.2386979Z [37mcomputing gzip size...[0m
+2026-06-29T22:45:45.2441829Z [37m[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.55 kB[22m[1m[22m[2m │ gzip:  0.33 kB[22m[0m
+2026-06-29T22:45:45.2457073Z [37m[2mdist/[22m[2massets/[22m[35mindex-BjcCbHIl.css  [39m[1m[2m  3.85 kB[22m[1m[22m[2m │ gzip:  1.39 kB[22m[0m
+2026-06-29T22:45:45.2459485Z [37m[2mdist/[22m[2massets/[22m[36mindex-uu4TqiYB.js   [39m[1m[2m 22.06 kB[22m[1m[22m[2m │ gzip:  6.31 kB[22m[0m
+2026-06-29T22:45:45.2461767Z [37m[2mdist/[22m[2massets/[22m[36mvendor-nf7bT_Uh.js  [39m[1m[2m140.87 kB[22m[1m[22m[2m │ gzip: 45.26 kB[22m[0m
+2026-06-29T22:45:45.2463250Z [37m[32m✓ built in 752ms[39m[0m
+2026-06-29T22:45:45.2705035Z [37m[0m
+2026-06-29T22:45:45.2734135Z [37mBuild script snippets done in 4 sec(s).[0m
+2026-06-29T22:45:45.2740475Z [37mPreparing output...[0m
+2026-06-29T22:45:45.2741415Z [37m[0m
+2026-06-29T22:45:45.2742917Z [37mCopying files to destination directory '/bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/app'...[0m
+2026-06-29T22:45:45.3229358Z [37mCopying to destination directory done in 0 sec(s).[0m
+2026-06-29T22:45:45.3231053Z [37mTotal time for destination directory preparation done in 0 sec(s).[0m
+2026-06-29T22:45:45.3249043Z [37m[0m
+2026-06-29T22:45:45.3251181Z [37mRemoving existing manifest file[0m
+2026-06-29T22:45:45.3266631Z [37mCreating a manifest file...[0m
+2026-06-29T22:45:45.3277978Z [37mManifest file created.[0m
+2026-06-29T22:45:45.3279054Z [37mCopying .ostype to manifest output directory.[0m
+2026-06-29T22:45:45.3309161Z [37m[0m
+2026-06-29T22:45:45.3309553Z [37mTotal execution done in 6 sec(s).[0m
+2026-06-29T22:45:45.6111477Z [37m[0m
+2026-06-29T22:45:45.6111850Z [37m[0m
+2026-06-29T22:45:45.6112280Z [37m---End of Oryx build logs---[0m
+2026-06-29T22:45:45.6135296Z [37mTry to validate location at: '/bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/app/dist'.[0m
+2026-06-29T22:45:45.6136544Z [37mFinished building app with Oryx[0m
+2026-06-29T22:45:45.6908648Z [37mUsing 'staticwebapp.config.json' file for configuration information, 'routes.json' will be ignored.[0m
+2026-06-29T22:45:45.7113979Z [37mTry to validate location at: '/github/workspace/api'.[0m
+2026-06-29T22:45:45.7115782Z [37mApi Directory Location: 'api' was found.[0m
+2026-06-29T22:45:45.7654301Z [37mStarting to build function app with Oryx[0m
+2026-06-29T22:45:45.7655368Z [37m---Oryx build logs---[0m
+2026-06-29T22:45:45.7655672Z [37m[0m
+2026-06-29T22:45:45.7655892Z [37m[0m
+2026-06-29T22:45:46.0598831Z [37mOperation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx[0m
+2026-06-29T22:45:46.0600210Z [37mYou can report issues at https://github.com/Microsoft/Oryx/issues[0m
+2026-06-29T22:45:46.0600993Z [37m[0m
+2026-06-29T22:45:46.0602666Z [37mOryx Version: 0.2.20260109.4+7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, Commit: 7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, ReleaseTagName: 20260109.4[0m
+2026-06-29T22:45:46.0603963Z [37m[0m
+2026-06-29T22:45:46.0604558Z [37mBuild Operation ID: c886bc7f2cd18e44[0m
+2026-06-29T22:45:46.0605606Z [37mOS Type           : bullseye[0m
+2026-06-29T22:45:46.0606319Z [37mImage Type        : githubactions[0m
+2026-06-29T22:45:46.0606893Z [37m[0m
+2026-06-29T22:45:46.0726756Z [37mPrimary SDK Storage URL: https://oryx-cdn.microsoft.io[0m
+2026-06-29T22:45:46.0727694Z [37mBackup SDK Storage URL: [0m
+2026-06-29T22:45:46.0728457Z [37mDetecting platforms...[0m
+2026-06-29T22:45:46.6846705Z [37mDetected following platforms:[0m
+2026-06-29T22:45:46.6847155Z [37m  nodejs: 22.22.0[0m
+2026-06-29T22:45:46.6855162Z [37mVersion '22.22.0' of platform 'nodejs' is not installed. Generating script to install it...[0m
+2026-06-29T22:45:46.7295496Z [37mDetected the following frameworks: Typescript[0m
+2026-06-29T22:45:46.8173806Z [37m[0m
+2026-06-29T22:45:46.8235922Z [37m[0m
+2026-06-29T22:45:46.8250783Z [37mSource directory     : /github/workspace/api[0m
+2026-06-29T22:45:46.8252199Z [37mDestination directory: /bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/api[0m
+2026-06-29T22:45:46.8253142Z [37m[0m
+2026-06-29T22:45:46.8253648Z [37mInstalling platform...[0m
+2026-06-29T22:45:46.8260744Z [37m[0m
+2026-06-29T22:45:46.8262228Z [37mDownloading and extracting 'nodejs' version '22.22.0' to '/tmp/oryx/platforms/nodejs/22.22.0'...[0m
+2026-06-29T22:45:46.8288607Z [37mDetected image debian flavor: bullseye.[0m
+2026-06-29T22:45:47.0604489Z [37mBinaries download done in 1 sec(s).[0m
+2026-06-29T22:45:47.0606353Z [37mVerifying checksum...[0m
+2026-06-29T22:45:47.0658414Z [37mExtracting contents...[0m
+2026-06-29T22:45:48.4046905Z [37mperforming sha512 checksum for: nodejs...[0m
+2026-06-29T22:45:48.5716438Z [37mChecksum verification done in 0 sec(s).[0m
+2026-06-29T22:45:48.5717335Z [37m[0m
+2026-06-29T22:45:48.5734271Z [37mPlatform installation done in 2 sec(s).[0m
+2026-06-29T22:45:48.6213042Z [37mRunning build script snippets...[0m
+2026-06-29T22:45:48.6214254Z [37mRemoving existing manifest file[0m
+2026-06-29T22:45:48.6237444Z [37mCreating directory for command manifest file if it does not exist[0m
+2026-06-29T22:45:48.6266967Z [37mCreating a manifest file...[0m
+2026-06-29T22:45:48.6270638Z [37mNode Build Command Manifest file created.[0m
+2026-06-29T22:45:48.6272285Z [37m[0m
+2026-06-29T22:45:48.6274139Z [37mUsing Node version:[0m
+2026-06-29T22:45:48.6317553Z [37mv22.22.0[0m
+2026-06-29T22:45:48.6327720Z [37m[0m
+2026-06-29T22:45:48.6331442Z [37mUsing Npm version:[0m
+2026-06-29T22:45:48.7635259Z [37m10.9.4[0m
+2026-06-29T22:45:48.7806559Z [37m[0m
+2026-06-29T22:45:48.7809025Z [37mInstalling production dependencies in '/github/workspace/api/.oryx_prod_node_modules'...[0m
+2026-06-29T22:45:48.7809925Z [37m[0m
+2026-06-29T22:45:48.7810516Z [37mRunning 'npm install --production'...[0m
+2026-06-29T22:45:48.7811078Z [37m[0m
+2026-06-29T22:45:48.8846151Z [31mnpm warn config production Use `--omit=dev` instead.[0m
+2026-06-29T22:45:49.3813880Z [31mnpm error code ERESOLVE[0m
+2026-06-29T22:45:49.3815375Z [31mnpm error ERESOLVE could not resolve[0m
+2026-06-29T22:45:49.3816532Z [31mnpm error[0m
+2026-06-29T22:45:49.3817794Z [31mnpm error While resolving: @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3818866Z [31mnpm error Found: eslint@9.39.4[0m
+2026-06-29T22:45:49.3819968Z [31mnpm error node_modules/eslint[0m
+2026-06-29T22:45:49.3820895Z [31mnpm error   dev eslint@"^9.0.0" from the root project[0m
+2026-06-29T22:45:49.3822226Z [31mnpm error   peer eslint@"^6.0.0 || ^7.0.0 || >=8.0.0" from @eslint-community/eslint-utils@4.9.1[0m
+2026-06-29T22:45:49.3825316Z [31mnpm error   node_modules/@eslint-community/eslint-utils[0m
+2026-06-29T22:45:49.3826804Z [31mnpm error     @eslint-community/eslint-utils@"^4.4.0" from @typescript-eslint/utils@7.18.0[0m
+2026-06-29T22:45:49.3827956Z [31mnpm error     node_modules/@typescript-eslint/utils[0m
+2026-06-29T22:45:49.3829257Z [31mnpm error       @typescript-eslint/utils@"7.18.0" from @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3830331Z [31mnpm error       node_modules/@typescript-eslint/eslint-plugin[0m
+2026-06-29T22:45:49.3831080Z [31mnpm error         dev @typescript-eslint/eslint-plugin@"^7.0.0" from the root project[0m
+2026-06-29T22:45:49.3831758Z [31mnpm error       1 more (@typescript-eslint/type-utils)[0m
+2026-06-29T22:45:49.3832406Z [31mnpm error     @eslint-community/eslint-utils@"^4.8.0" from eslint@9.39.4[0m
+2026-06-29T22:45:49.3832848Z [31mnpm error[0m
+2026-06-29T22:45:49.3833222Z [31mnpm error Could not resolve dependency:[0m
+2026-06-29T22:45:49.3833830Z [31mnpm error peer eslint@"^8.56.0" from @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3834446Z [31mnpm error node_modules/@typescript-eslint/eslint-plugin[0m
+2026-06-29T22:45:49.3835466Z [31mnpm error   dev @typescript-eslint/eslint-plugin@"^7.0.0" from the root project[0m
+2026-06-29T22:45:49.3835956Z [31mnpm error[0m
+2026-06-29T22:45:49.3836385Z [31mnpm error Conflicting peer dependency: eslint@8.57.1[0m
+2026-06-29T22:45:49.3836832Z [31mnpm error node_modules/eslint[0m
+2026-06-29T22:45:49.3837409Z [31mnpm error   peer eslint@"^8.56.0" from @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3838252Z [31mnpm error   node_modules/@typescript-eslint/eslint-plugin[0m
+2026-06-29T22:45:49.3838953Z [31mnpm error     dev @typescript-eslint/eslint-plugin@"^7.0.0" from the root project[0m
+2026-06-29T22:45:49.3839418Z [31mnpm error[0m
+2026-06-29T22:45:49.3839828Z [31mnpm error Fix the upstream dependency conflict, or retry[0m
+2026-06-29T22:45:49.3840390Z [31mnpm error this command with --force or --legacy-peer-deps[0m
+2026-06-29T22:45:49.3841059Z [31mnpm error to accept an incorrect (and potentially broken) dependency resolution.[0m
+2026-06-29T22:45:49.3841528Z [31mnpm error[0m
+2026-06-29T22:45:49.3841773Z [31mnpm error[0m
+2026-06-29T22:45:49.3842081Z [31mnpm error For a full report see:[0m
+2026-06-29T22:45:49.3842692Z [31mnpm error /github/home/.npm/_logs/2026-06-29T22_45_48_830Z-eresolve-report.txt[0m
+2026-06-29T22:45:49.3843586Z [31mnpm error A complete log of this run can be found in: /github/home/.npm/_logs/2026-06-29T22_45_48_830Z-debug-0.log[0m
+2026-06-29T22:45:49.7654159Z [37m[0m
+2026-06-29T22:45:49.7654999Z [37m[0m
+2026-06-29T22:45:49.7655784Z [37m---End of Oryx build logs---[0m
+2026-06-29T22:45:49.7662059Z [31mOryx has failed to build the solution.[0m
+2026-06-29T22:45:49.8117783Z [37m[0m
+2026-06-29T22:45:49.8119806Z [33mFor further information, please visit the Azure Static Web Apps documentation at https://docs.microsoft.com/en-us/azure/static-web-apps/[0m
+2026-06-29T22:45:49.8122715Z [33mIf you believe this behavior is unexpected, please raise a GitHub issue at https://github.com/azure/static-web-apps/issues/[0m
+2026-06-29T22:45:49.8123608Z [33mExiting[0m
+2026-06-29T22:45:50.6862553Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-29T22:45:50.6863822Z Post job cleanup.
+2026-06-29T22:45:50.7705426Z [command]/usr/bin/git version
+2026-06-29T22:45:50.7743380Z git version 2.54.0
+2026-06-29T22:45:50.7782237Z Temporarily overriding HOME='/home/runner/work/_temp/675c7c34-1d95-4f8a-8c25-164d3e65e31b' before making global git config changes
+2026-06-29T22:45:50.7784057Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-29T22:45:50.7788022Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bible-Commentary/Bible-Commentary
+2026-06-29T22:45:50.7828542Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-29T22:45:50.7888211Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-29T22:45:50.8122525Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-29T22:45:50.8148915Z http.https://github.com/.extraheader
+2026-06-29T22:45:50.8160539Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-06-29T22:45:50.8192831Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-29T22:45:50.8418786Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-29T22:45:50.8449388Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-29T22:45:50.8812490Z Cleaning up orphan processes
+2026-06-29T22:45:50.9242530Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

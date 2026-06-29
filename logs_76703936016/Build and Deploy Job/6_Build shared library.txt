@@ -1,0 +1,4 @@
+﻿2026-06-29T22:45:31.6641188Z ##[group]Run npx tsc --pretty false
+2026-06-29T22:45:31.6641562Z [36;1mnpx tsc --pretty false[0m
+2026-06-29T22:45:31.6674475Z shell: /usr/bin/bash -e {0}
+2026-06-29T22:45:31.6675007Z ##[endgroup]

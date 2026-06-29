@@ -1,0 +1,215 @@
+﻿2026-06-29T22:45:35.2023235Z ##[group]Run Azure/static-web-apps-deploy@v1
+2026-06-29T22:45:35.2023614Z with:
+2026-06-29T22:45:35.2024369Z   azure_static_web_apps_api_token: ***
+2026-06-29T22:45:35.2030584Z   repo_token: ***
+2026-06-29T22:45:35.2031007Z   action: upload
+2026-06-29T22:45:35.2031362Z   app_location: web
+2026-06-29T22:45:35.2031732Z   api_location: api
+2026-06-29T22:45:35.2032109Z   output_location: dist
+2026-06-29T22:45:35.2032530Z   app_build_command: npm run build
+2026-06-29T22:45:35.2032997Z ##[endgroup]
+2026-06-29T22:45:35.2153290Z ##[command]/usr/bin/docker run --name fbd267be46c14407a0a7e9074e8a654a_43fcab --label 784959 --workdir /github/workspace --rm -e "INPUT_AZURE_STATIC_WEB_APPS_API_TOKEN" -e "INPUT_REPO_TOKEN" -e "INPUT_ACTION" -e "INPUT_APP_LOCATION" -e "INPUT_API_LOCATION" -e "INPUT_OUTPUT_LOCATION" -e "INPUT_APP_BUILD_COMMAND" -e "INPUT_API_BUILD_COMMAND" -e "INPUT_APP_ARTIFACT_LOCATION" -e "INPUT_ROUTES_LOCATION" -e "INPUT_SKIP_APP_BUILD" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/Bible-Commentary/Bible-Commentary":"/github/workspace" 784959:fbd267be46c14407a0a7e9074e8a654a
+2026-06-29T22:45:37.5272928Z DeploymentId: 56bdc770-8208-4d4f-a466-ff421377f36f
+2026-06-29T22:45:37.5273553Z 
+2026-06-29T22:45:37.6426750Z [37mTry to validate location at: '/github/workspace/web'.[0m
+2026-06-29T22:45:37.6434657Z [37mApp Directory Location: 'web' was found.[0m
+2026-06-29T22:45:37.6436475Z [37mTry to validate location at: '/github/workspace/swa-db-connections'.[0m
+2026-06-29T22:45:37.6438047Z [37mLooking for event info[0m
+2026-06-29T22:45:38.8298562Z [37mStarting to build app with Oryx[0m
+2026-06-29T22:45:38.8308645Z [33mAzure Static Web Apps utilizes Oryx to build both static applications and Azure Functions. You can find more details on Oryx here: https://github.com/microsoft/Oryx[0m
+2026-06-29T22:45:38.8310727Z [33mOryx will build app with the following custom override command: npm run build[0m
+2026-06-29T22:45:38.8311728Z [37m---Oryx build logs---[0m
+2026-06-29T22:45:38.8312248Z [37m[0m
+2026-06-29T22:45:38.8312618Z [37m[0m
+2026-06-29T22:45:39.1634644Z [37mOperation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx[0m
+2026-06-29T22:45:39.1636337Z [37mYou can report issues at https://github.com/Microsoft/Oryx/issues[0m
+2026-06-29T22:45:39.1637100Z [37m[0m
+2026-06-29T22:45:39.1638782Z [37mOryx Version: 0.2.20260109.4+7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, Commit: 7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, ReleaseTagName: 20260109.4[0m
+2026-06-29T22:45:39.1640302Z [37m[0m
+2026-06-29T22:45:39.1640931Z [37mBuild Operation ID: 18848abc524570e7[0m
+2026-06-29T22:45:39.1641672Z [37mOS Type           : bullseye[0m
+2026-06-29T22:45:39.1642947Z [37mImage Type        : githubactions[0m
+2026-06-29T22:45:39.1643515Z [37m[0m
+2026-06-29T22:45:39.1768143Z [37mPrimary SDK Storage URL: https://oryx-cdn.microsoft.io[0m
+2026-06-29T22:45:39.1769167Z [37mBackup SDK Storage URL: [0m
+2026-06-29T22:45:39.1769936Z [37mDetecting platforms...[0m
+2026-06-29T22:45:39.7723663Z [37mDetected following platforms:[0m
+2026-06-29T22:45:39.7725049Z [37m  nodejs: 24.13.0[0m
+2026-06-29T22:45:39.7762511Z [37mVersion '24.13.0' of platform 'nodejs' is not installed. Generating script to install it...[0m
+2026-06-29T22:45:39.8130695Z [37mDetected the following frameworks: Typescript,React[0m
+2026-06-29T22:45:39.8974232Z [37m[0m
+2026-06-29T22:45:39.9057199Z [37m[0m
+2026-06-29T22:45:39.9065520Z [37mSource directory     : /github/workspace/web[0m
+2026-06-29T22:45:39.9067533Z [37mDestination directory: /bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/app[0m
+2026-06-29T22:45:39.9068634Z [37m[0m
+2026-06-29T22:45:39.9069167Z [37mInstalling platform...[0m
+2026-06-29T22:45:39.9070019Z [37m[0m
+2026-06-29T22:45:39.9075009Z [37mDownloading and extracting 'nodejs' version '24.13.0' to '/tmp/oryx/platforms/nodejs/24.13.0'...[0m
+2026-06-29T22:45:39.9099976Z [37mDetected image debian flavor: bullseye.[0m
+2026-06-29T22:45:40.1442416Z [37mBinaries download done in 1 sec(s).[0m
+2026-06-29T22:45:40.1443800Z [37mVerifying checksum...[0m
+2026-06-29T22:45:40.1500716Z [37mExtracting contents...[0m
+2026-06-29T22:45:41.4707202Z [37mperforming sha512 checksum for: nodejs...[0m
+2026-06-29T22:45:41.6359837Z [37mChecksum verification done in 0 sec(s).[0m
+2026-06-29T22:45:41.6360845Z [37m[0m
+2026-06-29T22:45:41.6377136Z [37mPlatform installation done in 2 sec(s).[0m
+2026-06-29T22:45:41.6907097Z [37mRunning build script snippets...[0m
+2026-06-29T22:45:41.6908548Z [37mRemoving existing manifest file[0m
+2026-06-29T22:45:41.6949043Z [37mCreating directory for command manifest file if it does not exist[0m
+2026-06-29T22:45:41.6986487Z [37mCreating a manifest file...[0m
+2026-06-29T22:45:41.6988026Z [37mNode Build Command Manifest file created.[0m
+2026-06-29T22:45:41.6988876Z [37m[0m
+2026-06-29T22:45:41.6989724Z [37mUsing Node version:[0m
+2026-06-29T22:45:41.7031177Z [37mv24.13.0[0m
+2026-06-29T22:45:41.7041689Z [37m[0m
+2026-06-29T22:45:41.7042492Z [37mUsing Npm version:[0m
+2026-06-29T22:45:41.8286583Z [37m11.6.2[0m
+2026-06-29T22:45:41.8441168Z [37m[0m
+2026-06-29T22:45:41.8442016Z [37mRunning 'npm install'...[0m
+2026-06-29T22:45:41.8442765Z [37m[0m
+2026-06-29T22:45:43.1343780Z [37m[0m
+2026-06-29T22:45:43.1355500Z [37mup to date, audited 308 packages in 1s[0m
+2026-06-29T22:45:43.1356372Z [37m[0m
+2026-06-29T22:45:43.1356959Z [37m76 packages are looking for funding[0m
+2026-06-29T22:45:43.1357623Z [37m  run `npm fund` for details[0m
+2026-06-29T22:45:43.1419872Z [37m[0m
+2026-06-29T22:45:43.1420487Z [37m2 vulnerabilities (1 moderate, 1 high)[0m
+2026-06-29T22:45:43.1421101Z [37m[0m
+2026-06-29T22:45:43.1421911Z [37mTo address all issues (including breaking changes), run:[0m
+2026-06-29T22:45:43.1422902Z [37m  npm audit fix --force[0m
+2026-06-29T22:45:43.1423462Z [37m[0m
+2026-06-29T22:45:43.1425382Z [37mRun `npm audit` for details.[0m
+2026-06-29T22:45:43.2090539Z [37m[0m
+2026-06-29T22:45:43.3256013Z [37m[0m
+2026-06-29T22:45:43.3257134Z [37m> @bible-commentary/web@1.0.0 build[0m
+2026-06-29T22:45:43.3258031Z [37m> tsc && vite build[0m
+2026-06-29T22:45:43.3258629Z [37m[0m
+2026-06-29T22:45:44.4677623Z [37m[36mvite v5.4.21 [32mbuilding for production...[36m[39m[0m
+2026-06-29T22:45:44.5182903Z [37mtransforming...[0m
+2026-06-29T22:45:45.1393046Z [37m[32m✓[39m 39 modules transformed.[0m
+2026-06-29T22:45:45.2068719Z [37mrendering chunks...[0m
+2026-06-29T22:45:45.2386913Z [37mcomputing gzip size...[0m
+2026-06-29T22:45:45.2441794Z [37m[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.55 kB[22m[1m[22m[2m │ gzip:  0.33 kB[22m[0m
+2026-06-29T22:45:45.2456630Z [37m[2mdist/[22m[2massets/[22m[35mindex-BjcCbHIl.css  [39m[1m[2m  3.85 kB[22m[1m[22m[2m │ gzip:  1.39 kB[22m[0m
+2026-06-29T22:45:45.2459473Z [37m[2mdist/[22m[2massets/[22m[36mindex-uu4TqiYB.js   [39m[1m[2m 22.06 kB[22m[1m[22m[2m │ gzip:  6.31 kB[22m[0m
+2026-06-29T22:45:45.2461755Z [37m[2mdist/[22m[2massets/[22m[36mvendor-nf7bT_Uh.js  [39m[1m[2m140.87 kB[22m[1m[22m[2m │ gzip: 45.26 kB[22m[0m
+2026-06-29T22:45:45.2463243Z [37m[32m✓ built in 752ms[39m[0m
+2026-06-29T22:45:45.2704728Z [37m[0m
+2026-06-29T22:45:45.2734102Z [37mBuild script snippets done in 4 sec(s).[0m
+2026-06-29T22:45:45.2740452Z [37mPreparing output...[0m
+2026-06-29T22:45:45.2741409Z [37m[0m
+2026-06-29T22:45:45.2742912Z [37mCopying files to destination directory '/bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/app'...[0m
+2026-06-29T22:45:45.3229310Z [37mCopying to destination directory done in 0 sec(s).[0m
+2026-06-29T22:45:45.3231007Z [37mTotal time for destination directory preparation done in 0 sec(s).[0m
+2026-06-29T22:45:45.3249021Z [37m[0m
+2026-06-29T22:45:45.3251173Z [37mRemoving existing manifest file[0m
+2026-06-29T22:45:45.3266618Z [37mCreating a manifest file...[0m
+2026-06-29T22:45:45.3277964Z [37mManifest file created.[0m
+2026-06-29T22:45:45.3279039Z [37mCopying .ostype to manifest output directory.[0m
+2026-06-29T22:45:45.3309147Z [37m[0m
+2026-06-29T22:45:45.3309549Z [37mTotal execution done in 6 sec(s).[0m
+2026-06-29T22:45:45.6111435Z [37m[0m
+2026-06-29T22:45:45.6111846Z [37m[0m
+2026-06-29T22:45:45.6112277Z [37m---End of Oryx build logs---[0m
+2026-06-29T22:45:45.6135274Z [37mTry to validate location at: '/bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/app/dist'.[0m
+2026-06-29T22:45:45.6136539Z [37mFinished building app with Oryx[0m
+2026-06-29T22:45:45.6908598Z [37mUsing 'staticwebapp.config.json' file for configuration information, 'routes.json' will be ignored.[0m
+2026-06-29T22:45:45.7113899Z [37mTry to validate location at: '/github/workspace/api'.[0m
+2026-06-29T22:45:45.7115765Z [37mApi Directory Location: 'api' was found.[0m
+2026-06-29T22:45:45.7654255Z [37mStarting to build function app with Oryx[0m
+2026-06-29T22:45:45.7655357Z [37m---Oryx build logs---[0m
+2026-06-29T22:45:45.7655669Z [37m[0m
+2026-06-29T22:45:45.7655889Z [37m[0m
+2026-06-29T22:45:46.0598787Z [37mOperation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx[0m
+2026-06-29T22:45:46.0600202Z [37mYou can report issues at https://github.com/Microsoft/Oryx/issues[0m
+2026-06-29T22:45:46.0600985Z [37m[0m
+2026-06-29T22:45:46.0602657Z [37mOryx Version: 0.2.20260109.4+7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, Commit: 7d54dd5970dbbf3ae6bdcf4dee57b07816a392ce, ReleaseTagName: 20260109.4[0m
+2026-06-29T22:45:46.0603954Z [37m[0m
+2026-06-29T22:45:46.0604550Z [37mBuild Operation ID: c886bc7f2cd18e44[0m
+2026-06-29T22:45:46.0605595Z [37mOS Type           : bullseye[0m
+2026-06-29T22:45:46.0606313Z [37mImage Type        : githubactions[0m
+2026-06-29T22:45:46.0606856Z [37m[0m
+2026-06-29T22:45:46.0726729Z [37mPrimary SDK Storage URL: https://oryx-cdn.microsoft.io[0m
+2026-06-29T22:45:46.0727684Z [37mBackup SDK Storage URL: [0m
+2026-06-29T22:45:46.0728447Z [37mDetecting platforms...[0m
+2026-06-29T22:45:46.6846667Z [37mDetected following platforms:[0m
+2026-06-29T22:45:46.6847152Z [37m  nodejs: 22.22.0[0m
+2026-06-29T22:45:46.6855138Z [37mVersion '22.22.0' of platform 'nodejs' is not installed. Generating script to install it...[0m
+2026-06-29T22:45:46.7295452Z [37mDetected the following frameworks: Typescript[0m
+2026-06-29T22:45:46.8173760Z [37m[0m
+2026-06-29T22:45:46.8235882Z [37m[0m
+2026-06-29T22:45:46.8250766Z [37mSource directory     : /github/workspace/api[0m
+2026-06-29T22:45:46.8252189Z [37mDestination directory: /bin/staticsites/56bdc770-8208-4d4f-a466-ff421377f36f-swa-oryx/api[0m
+2026-06-29T22:45:46.8253138Z [37m[0m
+2026-06-29T22:45:46.8253644Z [37mInstalling platform...[0m
+2026-06-29T22:45:46.8260729Z [37m[0m
+2026-06-29T22:45:46.8261860Z [37mDownloading and extracting 'nodejs' version '22.22.0' to '/tmp/oryx/platforms/nodejs/22.22.0'...[0m
+2026-06-29T22:45:46.8288592Z [37mDetected image debian flavor: bullseye.[0m
+2026-06-29T22:45:47.0604423Z [37mBinaries download done in 1 sec(s).[0m
+2026-06-29T22:45:47.0606334Z [37mVerifying checksum...[0m
+2026-06-29T22:45:47.0658383Z [37mExtracting contents...[0m
+2026-06-29T22:45:48.4046856Z [37mperforming sha512 checksum for: nodejs...[0m
+2026-06-29T22:45:48.5716398Z [37mChecksum verification done in 0 sec(s).[0m
+2026-06-29T22:45:48.5717327Z [37m[0m
+2026-06-29T22:45:48.5734249Z [37mPlatform installation done in 2 sec(s).[0m
+2026-06-29T22:45:48.6212985Z [37mRunning build script snippets...[0m
+2026-06-29T22:45:48.6214244Z [37mRemoving existing manifest file[0m
+2026-06-29T22:45:48.6237414Z [37mCreating directory for command manifest file if it does not exist[0m
+2026-06-29T22:45:48.6266941Z [37mCreating a manifest file...[0m
+2026-06-29T22:45:48.6270585Z [37mNode Build Command Manifest file created.[0m
+2026-06-29T22:45:48.6272271Z [37m[0m
+2026-06-29T22:45:48.6274128Z [37mUsing Node version:[0m
+2026-06-29T22:45:48.6317533Z [37mv22.22.0[0m
+2026-06-29T22:45:48.6327703Z [37m[0m
+2026-06-29T22:45:48.6331425Z [37mUsing Npm version:[0m
+2026-06-29T22:45:48.7635215Z [37m10.9.4[0m
+2026-06-29T22:45:48.7806524Z [37m[0m
+2026-06-29T22:45:48.7809003Z [37mInstalling production dependencies in '/github/workspace/api/.oryx_prod_node_modules'...[0m
+2026-06-29T22:45:48.7809921Z [37m[0m
+2026-06-29T22:45:48.7810511Z [37mRunning 'npm install --production'...[0m
+2026-06-29T22:45:48.7811073Z [37m[0m
+2026-06-29T22:45:48.8846098Z [31mnpm warn config production Use `--omit=dev` instead.[0m
+2026-06-29T22:45:49.3813834Z [31mnpm error code ERESOLVE[0m
+2026-06-29T22:45:49.3815359Z [31mnpm error ERESOLVE could not resolve[0m
+2026-06-29T22:45:49.3816524Z [31mnpm error[0m
+2026-06-29T22:45:49.3817757Z [31mnpm error While resolving: @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3818860Z [31mnpm error Found: eslint@9.39.4[0m
+2026-06-29T22:45:49.3819960Z [31mnpm error node_modules/eslint[0m
+2026-06-29T22:45:49.3820889Z [31mnpm error   dev eslint@"^9.0.0" from the root project[0m
+2026-06-29T22:45:49.3822218Z [31mnpm error   peer eslint@"^6.0.0 || ^7.0.0 || >=8.0.0" from @eslint-community/eslint-utils@4.9.1[0m
+2026-06-29T22:45:49.3825304Z [31mnpm error   node_modules/@eslint-community/eslint-utils[0m
+2026-06-29T22:45:49.3826800Z [31mnpm error     @eslint-community/eslint-utils@"^4.4.0" from @typescript-eslint/utils@7.18.0[0m
+2026-06-29T22:45:49.3827953Z [31mnpm error     node_modules/@typescript-eslint/utils[0m
+2026-06-29T22:45:49.3829253Z [31mnpm error       @typescript-eslint/utils@"7.18.0" from @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3830327Z [31mnpm error       node_modules/@typescript-eslint/eslint-plugin[0m
+2026-06-29T22:45:49.3831064Z [31mnpm error         dev @typescript-eslint/eslint-plugin@"^7.0.0" from the root project[0m
+2026-06-29T22:45:49.3831756Z [31mnpm error       1 more (@typescript-eslint/type-utils)[0m
+2026-06-29T22:45:49.3832403Z [31mnpm error     @eslint-community/eslint-utils@"^4.8.0" from eslint@9.39.4[0m
+2026-06-29T22:45:49.3832845Z [31mnpm error[0m
+2026-06-29T22:45:49.3833214Z [31mnpm error Could not resolve dependency:[0m
+2026-06-29T22:45:49.3833827Z [31mnpm error peer eslint@"^8.56.0" from @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3834444Z [31mnpm error node_modules/@typescript-eslint/eslint-plugin[0m
+2026-06-29T22:45:49.3835461Z [31mnpm error   dev @typescript-eslint/eslint-plugin@"^7.0.0" from the root project[0m
+2026-06-29T22:45:49.3835954Z [31mnpm error[0m
+2026-06-29T22:45:49.3836382Z [31mnpm error Conflicting peer dependency: eslint@8.57.1[0m
+2026-06-29T22:45:49.3836829Z [31mnpm error node_modules/eslint[0m
+2026-06-29T22:45:49.3837406Z [31mnpm error   peer eslint@"^8.56.0" from @typescript-eslint/eslint-plugin@7.18.0[0m
+2026-06-29T22:45:49.3838030Z [31mnpm error   node_modules/@typescript-eslint/eslint-plugin[0m
+2026-06-29T22:45:49.3838950Z [31mnpm error     dev @typescript-eslint/eslint-plugin@"^7.0.0" from the root project[0m
+2026-06-29T22:45:49.3839415Z [31mnpm error[0m
+2026-06-29T22:45:49.3839825Z [31mnpm error Fix the upstream dependency conflict, or retry[0m
+2026-06-29T22:45:49.3840387Z [31mnpm error this command with --force or --legacy-peer-deps[0m
+2026-06-29T22:45:49.3841057Z [31mnpm error to accept an incorrect (and potentially broken) dependency resolution.[0m
+2026-06-29T22:45:49.3841526Z [31mnpm error[0m
+2026-06-29T22:45:49.3841771Z [31mnpm error[0m
+2026-06-29T22:45:49.3842078Z [31mnpm error For a full report see:[0m
+2026-06-29T22:45:49.3842690Z [31mnpm error /github/home/.npm/_logs/2026-06-29T22_45_48_830Z-eresolve-report.txt[0m
+2026-06-29T22:45:49.3843583Z [31mnpm error A complete log of this run can be found in: /github/home/.npm/_logs/2026-06-29T22_45_48_830Z-debug-0.log[0m
+2026-06-29T22:45:49.7654110Z [37m[0m
+2026-06-29T22:45:49.7654951Z [37m[0m
+2026-06-29T22:45:49.7655779Z [37m---End of Oryx build logs---[0m
+2026-06-29T22:45:49.7662045Z [31mOryx has failed to build the solution.[0m
+2026-06-29T22:45:49.8117736Z [37m[0m
+2026-06-29T22:45:49.8119800Z [33mFor further information, please visit the Azure Static Web Apps documentation at https://docs.microsoft.com/en-us/azure/static-web-apps/[0m
+2026-06-29T22:45:49.8122709Z [33mIf you believe this behavior is unexpected, please raise a GitHub issue at https://github.com/azure/static-web-apps/issues/[0m
+2026-06-29T22:45:49.8123605Z [33mExiting[0m

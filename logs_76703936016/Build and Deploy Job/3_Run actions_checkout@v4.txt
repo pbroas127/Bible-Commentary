@@ -1,0 +1,90 @@
+﻿2026-06-29T22:45:22.8491612Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-29T22:45:22.8499315Z ##[group]Run actions/checkout@v4
+2026-06-29T22:45:22.8499773Z with:
+2026-06-29T22:45:22.8499981Z   submodules: true
+2026-06-29T22:45:22.8500219Z   repository: pbroas127/Bible-Commentary
+2026-06-29T22:45:22.8502941Z   token: ***
+2026-06-29T22:45:22.8503161Z   ssh-strict: true
+2026-06-29T22:45:22.8503361Z   ssh-user: git
+2026-06-29T22:45:22.8503565Z   persist-credentials: true
+2026-06-29T22:45:22.8503809Z   clean: true
+2026-06-29T22:45:22.8504015Z   sparse-checkout-cone-mode: true
+2026-06-29T22:45:22.8504270Z   fetch-depth: 1
+2026-06-29T22:45:22.8504467Z   fetch-tags: false
+2026-06-29T22:45:22.8504669Z   show-progress: true
+2026-06-29T22:45:22.8505131Z   lfs: false
+2026-06-29T22:45:22.8505371Z   set-safe-directory: true
+2026-06-29T22:45:22.8505867Z ##[endgroup]
+2026-06-29T22:45:22.9501109Z Syncing repository: pbroas127/Bible-Commentary
+2026-06-29T22:45:22.9502523Z ##[group]Getting Git version info
+2026-06-29T22:45:22.9502987Z Working directory is '/home/runner/work/Bible-Commentary/Bible-Commentary'
+2026-06-29T22:45:22.9503809Z [command]/usr/bin/git version
+2026-06-29T22:45:22.9505065Z git version 2.54.0
+2026-06-29T22:45:22.9526703Z ##[endgroup]
+2026-06-29T22:45:22.9540972Z Temporarily overriding HOME='/home/runner/work/_temp/a2520579-3e88-483d-875a-8aefcae1cf7b' before making global git config changes
+2026-06-29T22:45:22.9542333Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-29T22:45:22.9546631Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Bible-Commentary/Bible-Commentary
+2026-06-29T22:45:22.9596519Z Deleting the contents of '/home/runner/work/Bible-Commentary/Bible-Commentary'
+2026-06-29T22:45:22.9600343Z ##[group]Initializing the repository
+2026-06-29T22:45:22.9605022Z [command]/usr/bin/git init /home/runner/work/Bible-Commentary/Bible-Commentary
+2026-06-29T22:45:22.9729257Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-29T22:45:22.9730316Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-29T22:45:22.9731164Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-29T22:45:22.9731829Z hint: call:
+2026-06-29T22:45:22.9732139Z hint:
+2026-06-29T22:45:22.9732624Z hint: 	git config --global init.defaultBranch <name>
+2026-06-29T22:45:22.9733001Z hint:
+2026-06-29T22:45:22.9733328Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-29T22:45:22.9733908Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-29T22:45:22.9734340Z hint:
+2026-06-29T22:45:22.9734555Z hint: 	git branch -m <name>
+2026-06-29T22:45:22.9735169Z hint:
+2026-06-29T22:45:22.9735753Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-29T22:45:22.9736854Z Initialized empty Git repository in /home/runner/work/Bible-Commentary/Bible-Commentary/.git/
+2026-06-29T22:45:22.9748038Z [command]/usr/bin/git remote add origin https://github.com/pbroas127/Bible-Commentary
+2026-06-29T22:45:22.9794292Z ##[endgroup]
+2026-06-29T22:45:22.9795252Z ##[group]Disabling automatic garbage collection
+2026-06-29T22:45:22.9798874Z [command]/usr/bin/git config --local gc.auto 0
+2026-06-29T22:45:22.9828498Z ##[endgroup]
+2026-06-29T22:45:22.9829232Z ##[group]Setting up auth
+2026-06-29T22:45:22.9836162Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-29T22:45:22.9870039Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-29T22:45:23.0303534Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-29T22:45:23.0308266Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-29T22:45:23.0501713Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-29T22:45:23.0536045Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-29T22:45:23.0763749Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-29T22:45:23.0799506Z ##[endgroup]
+2026-06-29T22:45:23.0800049Z ##[group]Fetching the repository
+2026-06-29T22:45:23.0808903Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7ee4d279f3450dcbb054be5030afad4fcdb3d293:refs/remotes/origin/feature/web-app-redesign
+2026-06-29T22:45:23.2820467Z From https://github.com/pbroas127/Bible-Commentary
+2026-06-29T22:45:23.2821971Z  * [new ref]         7ee4d279f3450dcbb054be5030afad4fcdb3d293 -> origin/feature/web-app-redesign
+2026-06-29T22:45:23.2859035Z ##[endgroup]
+2026-06-29T22:45:23.2859716Z ##[group]Determining the checkout info
+2026-06-29T22:45:23.2862191Z ##[endgroup]
+2026-06-29T22:45:23.2869654Z [command]/usr/bin/git sparse-checkout disable
+2026-06-29T22:45:23.2915426Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-29T22:45:23.2945754Z ##[group]Checking out the ref
+2026-06-29T22:45:23.2953041Z [command]/usr/bin/git checkout --progress --force -B feature/web-app-redesign refs/remotes/origin/feature/web-app-redesign
+2026-06-29T22:45:23.3062102Z Switched to a new branch 'feature/web-app-redesign'
+2026-06-29T22:45:23.3064695Z branch 'feature/web-app-redesign' set up to track 'origin/feature/web-app-redesign'.
+2026-06-29T22:45:23.3071922Z ##[endgroup]
+2026-06-29T22:45:23.3072811Z ##[group]Setting up auth for fetching submodules
+2026-06-29T22:45:23.3077789Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-29T22:45:23.3123321Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2026-06-29T22:45:23.3158056Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2026-06-29T22:45:23.3192867Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-126809284@github.com:
+2026-06-29T22:45:23.3223260Z ##[endgroup]
+2026-06-29T22:45:23.3223944Z ##[group]Fetching submodules
+2026-06-29T22:45:23.3228983Z [command]/usr/bin/git submodule sync
+2026-06-29T22:45:23.3473778Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1
+2026-06-29T22:45:23.3727598Z [command]/usr/bin/git submodule foreach git config --local gc.auto 0
+2026-06-29T22:45:23.3970659Z ##[endgroup]
+2026-06-29T22:45:23.3971387Z ##[group]Persisting credentials for submodules
+2026-06-29T22:45:23.3978387Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2026-06-29T22:45:23.4230064Z [command]/usr/bin/git submodule foreach sh -c "git config --local 'http.https://github.com/.extraheader' 'AUTHORIZATION: basic ***' && git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-06-29T22:45:23.4484722Z [command]/usr/bin/git submodule foreach git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2026-06-29T22:45:23.4735695Z [command]/usr/bin/git submodule foreach git config --local --add 'url.https://github.com/.insteadOf' 'org-126809284@github.com:'
+2026-06-29T22:45:23.4962202Z ##[endgroup]
+2026-06-29T22:45:23.5003870Z [command]/usr/bin/git log -1 --format=%H
+2026-06-29T22:45:23.5028002Z 7ee4d279f3450dcbb054be5030afad4fcdb3d293

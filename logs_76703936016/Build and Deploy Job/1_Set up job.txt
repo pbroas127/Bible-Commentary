@@ -1,0 +1,33 @@
+﻿2026-06-29T22:44:58.9242740Z Current runner version: '2.335.1'
+2026-06-29T22:44:58.9269748Z ##[group]Runner Image Provisioner
+2026-06-29T22:44:58.9270662Z Hosted Compute Agent
+2026-06-29T22:44:58.9271420Z Version: 20260611.554
+2026-06-29T22:44:58.9272105Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+2026-06-29T22:44:58.9272917Z Build Date: 2026-06-11T21:40:46Z
+2026-06-29T22:44:58.9273787Z Worker ID: {c92d2bac-15e6-4557-ae52-2aacb7bfae77}
+2026-06-29T22:44:58.9274584Z Azure Region: eastus
+2026-06-29T22:44:58.9275666Z ##[endgroup]
+2026-06-29T22:44:58.9277255Z ##[group]Operating System
+2026-06-29T22:44:58.9278119Z Ubuntu
+2026-06-29T22:44:58.9278736Z 24.04.4
+2026-06-29T22:44:58.9279660Z LTS
+2026-06-29T22:44:58.9280327Z ##[endgroup]
+2026-06-29T22:44:58.9280945Z ##[group]Runner Image
+2026-06-29T22:44:58.9282512Z Image: ubuntu-24.04
+2026-06-29T22:44:58.9283142Z Version: 20260622.220.1
+2026-06-29T22:44:58.9284242Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260622.220/images/ubuntu/Ubuntu2404-Readme.md
+2026-06-29T22:44:58.9286326Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260622.220
+2026-06-29T22:44:58.9287441Z ##[endgroup]
+2026-06-29T22:44:58.9288726Z ##[group]GITHUB_TOKEN Permissions
+2026-06-29T22:44:58.9290968Z Contents: read
+2026-06-29T22:44:58.9291658Z Metadata: read
+2026-06-29T22:44:58.9292414Z Packages: read
+2026-06-29T22:44:58.9293043Z ##[endgroup]
+2026-06-29T22:44:58.9295647Z Secret source: Actions
+2026-06-29T22:44:58.9296855Z Prepare workflow directory
+2026-06-29T22:44:58.9634560Z Prepare all required actions
+2026-06-29T22:44:58.9674273Z Getting action download info
+2026-06-29T22:44:59.1607682Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-29T22:44:59.2414197Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-06-29T22:44:59.3632123Z Download action repository 'Azure/static-web-apps-deploy@v1' (SHA:1a947af9992250f3bc2e68ad0754c0b0c11566c9)
+2026-06-29T22:44:59.5564273Z Complete job name: Build and Deploy Job
