@@ -55,11 +55,11 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: 'upload'
-          # After building, upload the generated dist folder explicitly so the built index and assets are published
-          app_location: 'web/dist'
-          api_location: 'api/dist'
-          output_location: '.'
-          skip_app_build: true
+          # Let the action build the app and the API so functions are packaged correctly
+          app_location: 'web'
+          api_location: 'api'
+          # The action will produce the built web assets under web/dist
+          output_location: 'web/dist'
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
