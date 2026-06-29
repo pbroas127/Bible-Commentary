@@ -44,7 +44,8 @@ jobs:
           api_location: 'api'
           # Oryx builds inside `app_location` and outputs to this relative path
           output_location: 'dist'
-          app_build_command: 'npm run build'
+          # Ensure devDependencies (tsc, vite) are installed before building
+          app_build_command: 'npm ci --include=dev && npm run build'
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
