@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --build && cp host.json dist/ && cp package.json dist/",
+    "build": "tsc --build",
+    "postbuild": "node build.js"
     "type-check": "tsc --noEmit",
     "dev": "func start",
     "test": "vitest",
